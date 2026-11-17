@@ -1,0 +1,11 @@
+node_modules/
+package-lock.json
+
+# Screenshots de diagnóstico (não publicáveis)
+screenshot-*.png
+shot-historico.png
+shot-perfis.png
+shot-configuracoes.png
+
+.DS_Store
+Thumbs.db

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="color-scheme" content="dark light">
+  <title>VIBROTÁTIL Connect</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Contêiner do app: layout mobile fixo, centralizado no desktop -->
+<div class="app-container">
+
+  <!-- ===== Tela principal / scanner ===== -->
+  <section id="tela-principal" class="tela ativa">
+    <header class="cabecalho-app">
+      <div class="marca">
+        <span class="icone-marca">⚡</span>
+        <span class="nome-app">VIBROTÁTIL</span>
+      </div>
+      <div class="status-topo">
+        <span class="bolinha-status" id="bolinha-microfone"></span>
+        <span class="texto-status" id="texto-microfone">Microfone parado</span>
+      </div>
+    </header>
+
+    <main class="conteudo-principal">
+      <!-- Área de detecção central -->
+      <div class="area-detecao">
+        <div class="circuito-visual" id="circuito-visual">
+          <div class="onda" id="onda-1"></div>
+          <div class="onda" id="onda-2"></div>
+          <div class="onda" id="onda-3"></div>
+          <span class="mic-central" id="mic-central">🎙️</span>
+        </div>
+
+        <div class="resultado-detecao" id="resultado-detecao">
+          <div class="icone-alerta" id="icone-resultado">🎙️</div>
+          <h2 id="texto-resultado">Aguardando som...</h2>
+          <p id="subtexto-resultado">Aponte o microfone para o ambiente</p>
+        </div>
+
+        <button type="button" class="btn-ouvir" id="btn-ouvir">
+          <span class="icone-btn">🎧</span>
+          <span class="texto-btn" id="texto-btn-ouvir">Ouvir ambiente</span>
+        </button>
+      </div>
+
+      <!-- Atalhos rápidos -->
+      <section class="atalhos">
+        <h3 class="titulo-secao">Alertas recentes</h3>
+        <div class="grade-atalhos" id="grade-atalhos">
+          <!-- preenchido por JS -->
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <!-- ===== Tela de histórico ===== -->
+  <section id="tela-historico" class="tela">
+    <header class="cabecalho-app">
+      <button type="button" class="btn-voltar" data-ir-para="principal">←</button>
+      <div class="marca">
+        <span class="nome-app">Histórico</span>
+      </div>
+    </header>
+
+    <main class="conteudo-principal">
+      <div class="vazio" id="historico-vazio" style="display:none;">
+        <div class="icone-vazio">📭</div>
+        <p>Nenhum alerta registrado ainda.</p>
+        <p class="texto-suave">Os sons identificados aparecerão aqui.</p>
+      </div>
+
+      <div class="lista-historico" id="lista-historico">
+        <!-- preenchido por JS -->
+      </div>
+    </main>
+  </section>
+
+  <!-- ===== Tela de perfis ===== -->
+  <section id="tela-perfis" class="tela">
+    <header class="cabecalho-app">
+      <button type="button" class="btn-voltar" data-ir-para="principal">←</button>
+      <div class="marca">
+        <span class="nome-app">Perfis</span>
+      </div>
+    </header>
+
+    <main class="conteudo-principal">
+      <div class="botoes-acao-topo">
+        <button type="button" class="btn btn-secundario btn-pequeno" id="btn-novo-perfil">+ Novo</button>
+      </div>
+
+      <div class="lista-perfis" id="lista-perfis">
+        <!-- preenchido por JS -->
+      </div>
+
+      <!-- Modal novo perfil -->
+      <div id="overlay-modal" class="overlay" style="display:none;" aria-hidden="true"></div>
+      <div id="modal-perfil" class="modal" style="display:none;">
+        <div class="modal-header">
+          <h2>Novo perfil</h2>
+          <button type="button" class="btn-fechar-modal" id="btn-fechar-modal-perfil">✕</button>
+        </div>
+        <label for="nome-perfil">Nome do perfil</label>
+        <input type="text" id="nome-perfil" placeholder="Ex: Casa, Rua, Trabalho">
+        <div class="botoes-modal">
+          <button type="button" class="btn btn-outline btn-pequeno" id="btn-cancelar-perfil">Cancelar</button>
+          <button type="button" class="btn btn-primary btn-pequeno" id="btn-salvar-perfil">Salvar</button>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- ===== Tela de configurações / ajustes ===== -->
+  <section id="tela-configuracoes" class="tela">
+    <header class="cabecalho-app">
+      <button type="button" class="btn-voltar" data-ir-para="principal">←</button>
+      <div class="marca">
+        <span class="nome-app">Ajustes</span>
+      </div>
+    </header>
+
+    <main class="conteudo-principal">
+      <section class="bloco-config">
+        <h3 class="titulo-bloco">Acessibilidade</h3>
+        <div class="opcao-config">
+          <label>Vibração dos alertas</label>
+          <input type="checkbox" id="toggle-vibracao" checked>
+        </div>
+        <div class="opcao-config">
+          <label>Sinalização visual na tela</label>
+          <input type="checkbox" id="toggle-visual" checked>
+        </div>
+        <div class="opcao-config">
+          <label>Modo escuro</label>
+          <input type="checkbox" id="toggle-tema">
+        </div>
+      </section>
+
+      <section class="bloco-config">
+        <h3 class="titulo-bloco">Dispositivos conectados</h3>
+        <div class="opcao-config">
+          <label>VIBROTÁTIL Wrist</label>
+          <input type="checkbox" id="toggle-wrist" checked>
+        </div>
+        <div class="opcao-config">
+          <label>VIBROTÁTIL Chest</label>
+          <input type="checkbox" id="toggle-chest">
+        </div>
+        <div class="opcao-config">
+          <label>VIBROTÁTIL Bone</label>
+          <input type="checkbox" id="toggle-bone">
+        </div>
+      </section>
+
+      <section class="bloco-config">
+        <h3 class="titulo-bloco">Sobre</h3>
+        <div class="opcao-config">
+          <label>Versão do app</label>
+          <span class="valor-config">1.0.0 (Protótipo Módulo III)</span>
+        </div>
+        <div class="opcao-config">
+          <label>Desenvolvido por</label>
+          <span class="valor-config">G-TEC do Brasil S.A.</span>
+        </div>
+      </section>
+
+      <div class="aviso-app">
+        <strong>AVISO:</strong> este é um protótipo simulado da interface do Módulo III.
+        Não captura áudio real do microfone, não se conecta via Bluetooth e não executa
+        inteligência artificial. Todos os sons são simulados para demonstração.
+      </div>
+    </main>
+  </section>
+
+  <!-- Navegação inferior (global, visível em todas as telas) -->
+  <nav class="nav-inferior">
+    <button type="button" class="nav-item ativo" data-ir-para="principal">
+      <span class="icone-nav">🏠</span>
+      <span class="label-nav">Início</span>
+    </button>
+    <button type="button" class="nav-item" data-ir-para="historico">
+      <span class="icone-nav">📜</span>
+      <span class="label-nav">Histórico</span>
+    </button>
+    <button type="button" class="nav-item" data-ir-para="perfis">
+      <span class="icone-nav">👤</span>
+      <span class="label-nav">Perfis</span>
+    </button>
+    <button type="button" class="nav-item" data-ir-para="configuracoes">
+      <span class="icone-nav">⚙️</span>
+      <span class="label-nav">Ajustes</span>
+    </button>
+  </nav>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+</div><!-- /app-container -->
+
+  <script src="js/app.js"></script>
+</body>
+</html>
