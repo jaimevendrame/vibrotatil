@@ -112,7 +112,7 @@ const PDF_CORPO = `${DOCS}/_corpo.pdf`;
                   font-family:Segoe UI,sans-serif;display:flex;justify-content:space-between;
                   border-bottom:0.5px solid #d8e0ea;padding-bottom:2mm;">
         <span>VIBROTÁTIL® Connect, Protótipo do Módulo III</span>
-        <span>G-TEC do Brasil S.A.</span>
+        <span>Projeto em nome individual (CPF)</span>
       </div>`,
     footerTemplate: `
       <div style="font-size:7.5pt;color:#8fa0b4;width:100%;padding:0 16mm;
