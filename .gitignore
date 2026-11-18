@@ -7,5 +7,15 @@ shot-historico.png
 shot-perfis.png
 shot-configuracoes.png
 
+# Temporários da geração do PDF
+docs/_capa.pdf
+docs/_corpo.pdf
+docs/doc.txt
+docs/_rev/
+
 .DS_Store
 Thumbs.db
+
+# Capturas de diagnostico (substituidas pelas de docs/img)
+shot-desktop.png
+shot-principal.png

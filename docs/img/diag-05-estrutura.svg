@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="620" viewBox="0 0 780 620">
+  <rect width="780" height="340" fill="#0b1220"/>
+  <text x="30" y="48" font-family="Segoe UI, system-ui, sans-serif" font-size="24" font-weight="700" fill="#e2e8f0">Estrutura do Repositório</text>
+  <text x="30" y="76" font-family="Segoe UI, system-ui, sans-serif" font-size="14" fill="#94a3b8">Arquivos versionados e sua responsabilidade</text>
+  <rect x="30" y="92" width="720" height="2" fill="#2b3a52"/>
+    <rect x="40" y="130" width="210" height="28" rx="6" fill="#1e293b" stroke="#0b6ba4" stroke-width="1.8"/>
+    <text x="52" y="149" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="700" fill="#e2e8f0">📁 app-modulo-iii/</text>
+    
+    <rect x="40" y="176" width="230" height="28" rx="6" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.8"/>
+    <text x="52" y="195" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="500" fill="#e2e8f0">📄 index.html</text>
+    <text x="300" y="195" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">4 telas + barra inferior + modal (207 linhas)</text>
+    <rect x="40" y="216" width="210" height="28" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.8"/>
+    <text x="52" y="235" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="700" fill="#e2e8f0">📁 css/</text>
+    
+    <rect x="40" y="252" width="230" height="28" rx="6" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.8"/>
+    <text x="52" y="271" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="500" fill="#e2e8f0">📄 css/style.css</text>
+    <text x="300" y="271" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Design tokens, layout, animações (779 linhas)</text>
+    <rect x="40" y="292" width="210" height="28" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.8"/>
+    <text x="52" y="311" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="700" fill="#e2e8f0">📁 js/</text>
+    
+    <rect x="40" y="328" width="230" height="28" rx="6" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.8"/>
+    <text x="52" y="347" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="500" fill="#e2e8f0">📄 js/app.js</text>
+    <text x="300" y="347" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Estado, navegação, renderização, simulação (467 linhas)</text>
+    <rect x="40" y="368" width="230" height="28" rx="6" fill="#1e293b" stroke="#08558a" stroke-width="1.8"/>
+    <text x="52" y="387" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="500" fill="#e2e8f0">📄 inspecionar.js</text>
+    <text x="300" y="387" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Validação automatizada com Playwright</text>
+    <rect x="40" y="408" width="230" height="28" rx="6" fill="#1e293b" stroke="#08558a" stroke-width="1.8"/>
+    <text x="52" y="427" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="500" fill="#e2e8f0">📄 capturar.js</text>
+    <text x="300" y="427" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Geração das capturas da documentação</text>
+    <rect x="40" y="448" width="210" height="28" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.8"/>
+    <text x="52" y="467" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="700" fill="#e2e8f0">📁 docs/</text>
+    
+    <rect x="40" y="484" width="230" height="28" rx="6" fill="#1e293b" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="52" y="503" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="500" fill="#e2e8f0">📄 docs/VIBROTATIL-...pdf</text>
+    <text x="300" y="503" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Este documento</text>
+    <rect x="40" y="524" width="210" height="28" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.8"/>
+    <text x="52" y="543" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="700" fill="#e2e8f0">📁 docs/img/</text>
+    <text x="300" y="543" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">14 capturas + 5 diagramas</text>
+    <rect x="40" y="564" width="230" height="28" rx="6" fill="#1e293b" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="52" y="583" font-family="Segoe UI, system-ui, sans-serif" font-size="12.5" font-weight="500" fill="#e2e8f0">📄 README.md</text>
+    <text x="300" y="583" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Visão geral do projeto</text><path d="M 48 130 L 48 564" stroke="#2b3a52" stroke-width="1.5" fill="none"/><path d="M 48 216 L 60 216" stroke="#2b3a52" stroke-width="1.5" fill="none"/><path d="M 48 292 L 60 292" stroke="#2b3a52" stroke-width="1.5" fill="none"/><path d="M 48 448 L 60 448" stroke="#2b3a52" stroke-width="1.5" fill="none"/><path d="M 60 216 L 60 252" stroke="#2b3a52" stroke-width="1.5" fill="none"/><path d="M 60 292 L 60 328" stroke="#2b3a52" stroke-width="1.5" fill="none"/><path d="M 60 448 L 60 484" stroke="#2b3a52" stroke-width="1.5" fill="none"/><path d="M 60 484 L 60 524" stroke="#2b3a52" stroke-width="1.5" fill="none"/>
+  <rect x="40" y="548" width="700" height="46" rx="8" fill="#162135" stroke="#2b3a52"/>
+  <text x="56" y="576" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">
+    <tspan font-weight="700" fill="#2dd4bf">Fora do versionamento:</tspan>
+    <tspan> node_modules/ (19 MB), package-lock.json, screenshots de diagnóstico</tspan>
+  </text>
+  <text x="30" y="596" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Figura 6 — Árvore do repositório. Apenas arquivos-fonte e de documentação são versionados.</text></svg>

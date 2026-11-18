@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>VIBROTÁTIL Connect — Protótipo do Módulo III</title>
+<style>
+  :root {
+    --azul: #0b6ba4;
+    --azul-escuro: #08558a;
+    --teal: #0f9b8e;
+    --ambar: #b45309;
+    --texto: #1f2937;
+    --texto-suave: #5a6b82;
+    --borda: #d8e0ea;
+    --fundo-cinza: #f4f7fa;
+    --sucesso: #15803d;
+    --erro: #b91c1c;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    color: var(--texto);
+    font-size: 10.5pt;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ===================== CAPA ===================== */
+  .capa {
+    min-height: 248mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12mm 0 2mm 0;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+  }
+
+  .capa-topo { border-bottom: 3px solid var(--azul); padding-bottom: 5mm; }
+  .capa-logo { font-size: 11pt; font-weight: 700; color: var(--azul); letter-spacing: 0.06em; }
+  .capa-empresa { font-size: 9pt; color: var(--texto-suave); margin-top: 1mm; }
+
+  .capa-meio { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 6mm 0; }
+  .capa-eyebrow {
+    font-size: 9pt; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 4mm;
+  }
+  .capa-titulo { font-size: 23pt; font-weight: 800; line-height: 1.2; color: var(--azul-escuro); margin-bottom: 3mm; }
+  .capa-subtitulo { font-size: 11.5pt; color: var(--texto); font-weight: 400; line-height: 1.45; max-width: 132mm; }
+  .capa-linha { width: 38mm; height: 3px; background: var(--ambar); margin: 5mm 0; }
+
+  .capa-ficha { border: 1px solid var(--borda); border-radius: 3mm; overflow: hidden; }
+  .capa-ficha table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+  .capa-ficha td { padding: 1.7mm 3.5mm; border-bottom: 1px solid var(--borda); vertical-align: top; }
+  .capa-ficha tr:last-child td { border-bottom: none; }
+  .capa-ficha td:first-child { width: 34mm; font-weight: 700; color: var(--azul-escuro); background: var(--fundo-cinza); }
+
+  .capa-aviso {
+    margin-top: 5mm; padding: 3.5mm 4mm;
+    background: #fffbeb; border-left: 4px solid var(--ambar);
+    font-size: 8.5pt; line-height: 1.5;
+  }
+  .capa-aviso strong { color: var(--ambar); }
+
+  .capa-rodape { border-top: 1px solid var(--borda); padding-top: 3mm; margin-top: 4mm; font-size: 8pt; color: var(--texto-suave); }
+
+  /* ===================== SUMÁRIO ===================== */
+  .sumario-bloco { page-break-after: always; }
+  h1.sumario { font-size: 19pt; color: var(--azul-escuro); margin-bottom: 2mm; }
+  .sumario-sub { color: var(--texto-suave); font-size: 9.5pt; margin-bottom: 6mm; }
+  #sumario-lista { list-style: none; padding: 0; }
+  #sumario-lista li { margin-bottom: 2.6mm; font-size: 10pt; }
+  #sumario-lista a { color: var(--texto); text-decoration: none; border-bottom: 1px dotted var(--borda); }
+  #sumario-lista a:hover { color: var(--azul); }
+
+  /* ===================== TIPOGRAFIA ===================== */
+  h2 {
+    font-size: 15.5pt; color: var(--azul-escuro); font-weight: 700;
+    margin: 0 0 4mm 0; padding-bottom: 2mm; border-bottom: 2px solid var(--azul);
+  }
+  h2 .num { color: var(--ambar); margin-right: 3mm; }
+  h3 { font-size: 12pt; color: var(--azul); font-weight: 700; margin: 6mm 0 2.5mm 0; }
+  h4 { font-size: 10.5pt; color: var(--texto); font-weight: 700; margin: 4mm 0 1.5mm 0; }
+  p { margin: 0 0 2.6mm 0; text-align: justify; }
+  ul, ol { margin: 0 0 3mm 0; padding-left: 6mm; }
+  li { margin-bottom: 1.2mm; }
+  strong { color: var(--azul-escuro); }
+  code {
+    font-family: Consolas, "Courier New", monospace; font-size: 9pt;
+    background: var(--fundo-cinza); padding: 0.4mm 1.2mm; border-radius: 1.5mm; color: #b45309;
+  }
+  pre {
+    background: #0b1220; color: #e2e8f0; padding: 3.5mm 4mm; border-radius: 2mm;
+    font-family: Consolas, "Courier New", monospace; font-size: 8.5pt;
+    line-height: 1.5; overflow-x: hidden; white-space: pre-wrap;
+  }
+  pre .k { color: #7dd3fc; }
+  pre .s { color: #86efac; }
+  pre .c { color: #64748b; font-style: italic; }
+
+  .secao { page-break-before: always; }
+
+  /* ===================== TABELAS ===================== */
+  table.dados {
+    width: 100%; border-collapse: collapse; font-size: 9pt;
+    margin: 3mm 0 4mm 0;
+  }
+  table.dados th {
+    background: var(--azul); color: #fff; text-align: left;
+    padding: 2.2mm 3mm; font-weight: 700; border: 1px solid var(--azul);
+  }
+  table.dados td {
+    padding: 2.2mm 3mm; border: 1px solid var(--borda); vertical-align: top;
+  }
+  table.dados tr:nth-child(even) td { background: var(--fundo-cinza); }
+  .tabela-captura {
+    font-size: 8.5pt; color: var(--texto-suave);
+    margin: -2mm 0 5mm 0; padding-left: 1mm;
+  }
+
+  /* ===================== FIGURAS ===================== */
+  figure { margin: 4mm 0 5mm 0; text-align: center; }
+  figure img { max-width: 100%; border: 1px solid var(--borda); border-radius: 2mm; }
+  figure.destaque img { border: 1px solid var(--borda); box-shadow: 0 2px 8px rgba(11,107,164,0.12); }
+  figcaption {
+    font-size: 8.5pt; color: var(--texto-suave);
+    margin-top: 2mm; text-align: left; line-height: 1.5;
+  }
+  figcaption strong { color: var(--azul-escuro); }
+
+  .dupla { display: flex; gap: 4mm; margin: 4mm 0; }
+  .dupla figure { flex: 1; margin: 0; }
+
+  /* ===================== CALLOUTS ===================== */
+  .nota {
+    padding: 3.5mm 4mm; background: var(--fundo-cinza);
+    border-left: 4px solid var(--azul); border-radius: 0 2mm 2mm 0;
+    margin: 3.5mm 0; font-size: 9.5pt; line-height: 1.6;
+  }
+  .nota.atencao { background: #fffbeb; border-left-color: var(--ambar); }
+  .nota.atencao strong { color: var(--ambar); }
+  .nota.limite { background: #fef2f2; border-left-color: var(--erro); }
+  .nota.limite strong { color: var(--erro); }
+  .nota.titulo-nota { font-weight: 700; color: var(--azul-escuro); display: block; margin-bottom: 1.5mm; }
+
+  .rotulo {
+    display: inline-block; padding: 0.6mm 2mm; border-radius: 1.5mm;
+    font-size: 8pt; font-weight: 700; letter-spacing: 0.04em;
+  }
+  .rotulo.ok { background: #dcfce7; color: var(--sucesso); }
+  .rotulo.plano { background: #fef3c7; color: var(--ambar); }
+  .rotulo.futuro { background: #e0e7ff; color: #4338ca; }
+
+  .quebra-pagina { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<!-- ============================ CAPA ============================ -->
+<section class="capa">
+  <div class="capa-topo">
+    <div class="capa-logo">⚡ VIBROTÁTIL®</div>
+    <div class="capa-empresa">G-TEC do Brasil S.A. · Indústria Brasileira · Campo Mourão, Paraná</div>
+  </div>
+
+  <div class="capa-meio">
+    <div class="capa-eyebrow">Documento técnico de protótipo</div>
+    <div class="capa-titulo">Protótipo de Interface do Aplicativo Móvel — Módulo III</div>
+    <div class="capa-linha"></div>
+    <div class="capa-subtitulo">
+      Documentação funcional da simulação do aplicativo <strong>VIBROTÁTIL® Connect</strong>,
+      com evidências de interface, diagramas de arquitetura e análise de prontidão
+      para evolução do protótipo até a versão com processamento real de áudio.
+    </div>
+
+    <div class="capa-aviso">
+      <strong>Natureza deste documento.</strong> O material documenta um <strong>protótipo de interface</strong>.
+      A classificação de sons é integralmente simulada: o aplicativo não captura áudio do microfone,
+      não executa processamento digital de sinais, não emprega inteligência artificial e não se
+      comunica com os dispositivos físicos VIBROTÁTIL® Bone, Chest ou Wrist. Todos os eventos
+      apresentados são sintéticos, gerados por sorteio interno, e servem exclusivamente à validação
+      de fluxos, navegação e experiência do usuário.
+    </div>
+  </div>
+
+  <div>
+    <div class="capa-ficha">
+      <table>
+        <tr><td>Projeto</td><td>VIBROTÁTIL® — Dispositivo Inteligente de Percepção Vibrotátil para Pessoas com Deficiência Auditiva</td></tr>
+        <tr><td>Módulo</td><td>Módulo III — Aplicativo móvel baseado nos recursos do smartphone</td></tr>
+        <tr><td>Organização</td><td>G-TEC do Brasil S.A. — CNPJ 84.846.278/0001-74</td></tr>
+        <tr><td>Versão do documento</td><td>1.0 — emissão inicial</td></tr>
+        <tr><td>Data</td><td>17 de novembro de 2026</td></tr>
+        <tr><td>Repositório</td><td>github.com/jaimevendrame/vibrotatil</td></tr>
+        <tr><td>Protótipo publicado</td><td>jaimevendrame.github.io/vibrotatil/</td></tr>
+        <tr><td>Commit documentado</td><td>815d661</td></tr>
+        <tr><td>Tecnologia</td><td>HTML5, CSS3 (design tokens custom properties) e JavaScript ES2020 sem frameworks</td></tr>
+        <tr><td>Volume de código</td><td>1.453 linhas em 3 arquivos-fonte (HTML 207 · CSS 779 · JS 467)</td></tr>
+        <tr><td>Validação</td><td>17 asserções automatizadas com Playwright, sem erros de console</td></tr>
+      </table>
+    </div>
+
+    <div class="capa-rodape">
+      © 2026 G-TEC do Brasil S.A. Todos os direitos reservados.<br>
+      Documento de uso interno. A reprodução ou divulgação requer autorização da G-TEC do Brasil S.A.
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SUMÁRIO ============================ -->
+<section class="sumario-bloco">
+  <h1 class="sumario">Sumário</h1>
+  <div class="sumario-sub">Documento técnico do protótipo VIBROTÁTIL® Connect — Módulo III</div>
+  <ul id="sumario-lista"></ul>
+</section>
+
+<!-- ============================ 1 ============================ -->
+<section class="secao">
+  <h2><span class="num">1.</span> Contexto, escopo e posicionamento</h2>
+
+  <h3>1.1 Onde o Módulo III se posiciona</h3>
+  <p>
+    O projeto VIBROTÁTIL® resolve a percepção de eventos sonoros por pessoas com deficiência
+    auditiva severa, profunda ou total irreversível, convertendo informação acústica em estímulo
+    físico. A solução foi estruturada em três módulos de complexidade crescente, escolhidos para
+    permitir a validação incremental do conceito antes de qualquer investimento em fabricação.
+  </p>
+
+  <table class="dados">
+    <thead>
+      <tr><th style="width:14%">Módulo</th><th style="width:22%">Forma</th><th style="width:32%">Estado documentado</th><th style="width:32%">Papel no ecossistema</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>I</strong></td>
+        <td>Circuito de bancada</td>
+        <td>Protótipo funcional, em operação</td>
+        <td>Comprova o princípio de conversão som → vibração. Usa microfone eletreto, LED e motor vibratório, com ajuste manual de sensibilidade. Sem filtros e sem capacidade de diferenciação de fontes.</td>
+      </tr>
+      <tr>
+        <td><strong>II</strong></td>
+        <td>Equipamento dedicado</td>
+        <td>Software em desenvolvimento, estimado em 40%</td>
+        <td>Incorpora DSP, filtragem seletiva e classificação de eventos sonoros, com hardware próprio e microprocessor dedicado. Previsto em 18 a 20 meses de trabalho adicional.</td>
+      </tr>
+      <tr>
+        <td><strong>III</strong></td>
+        <td>Aplicativo de smartphone</td>
+        <td>Este documento</td>
+        <td>Transfere as capacidades do Módulo II para o celular, aproveitando microfone e processador já existentes. Estimativa de conclusão em até 12 meses, partindo de 70% de desenvolvimento informado pela equipe.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Comparação entre os três módulos do projeto VIBROTÁTIL®.</div>
+
+  <div class="nota">
+    <span class="titulo-nota">Relação entre os módulos</span>
+    O Módulo III não é um ramo independente: ele é a camada de software do Módulo II sem o
+    hardware dedicado. As categorias de som, os padrões vibratórios e a lógica de perfis são
+    compartilhados entre os dois. Isso significa que a arquitetura de software validada neste
+    protótipo tende a ser reaproveitada na versão com equipamento próprio, o que reduz o
+    retrabalho de engenharia.
+  </div>
+
+  <h3>1.2 Objetivo do protótipo documentado</h3>
+  <p>
+    O protótipo tem finalidade estritamente demonstrativa e de validação de interface. Seus
+    objetivos são:
+  </p>
+  <ul>
+    <li>Validar a arquitetura de navegação do aplicativo com usuários reais antes de comprometer-se com desenvolvimento nativo;</li>
+    <li>Estabelecer o vocabulário visual e tátil do produto — cores, hierarquia, nomenclatura dos eventos sonoros;</li>
+    <li>Testar a compreensão de padrões táteis distintos por categoria de som, antes de investir em modelos de classificação;</li>
+    <li>Fornecer uma base de código executável e documentada para servir de referência à equipe de desenvolvimento;</li>
+    <li>Constituir evidência técnica verificável do estado de maturidade do Módulo III.</li>
+  </ul>
+
+  <h3>1.3 Limites declarados</h3>
+  <p>
+    A distinção entre o que o protótipo demonstra e o que ele simula é essencial para a leitura
+    correta deste documento. Todo o conjunto de funcionalidades abaixo está ausente da implementação:
+  </p>
+
+  <table class="dados">
+    <thead>
+      <tr><th style="width:30%">Capacidade</th><th style="width:35%">Status no protótipo</th><th style="width:35%">Situação na versão real</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Captura de áudio do microfone</td><td>Não implementada</td><td>Requer <code>getUserMedia()</code> + Web Audio API + permissão do sistema operacional</td></tr>
+      <tr><td>Classificação de sons</td><td>Sorteio aleatório entre 6 categorias</td><td>Requer modelo treinado, base de dados rotulada e inferência local</td></tr>
+      <tr><td>Processamento digital de sinais</td><td>Não implementado</td><td>Requer FFT, filtragem passa-banda e compressão dinâmica</td></tr>
+      <tr><td>Conexão com Bone, Chest e Wrist</td><td>Somente alternadores de estado</td><td>Requer Bluetooth Low Energy com protocolo proprietário</td></tr>
+      <tr><td>Vibração tátil</td><td>Real, via <code>navigator.vibrate()</code></td><td>Funcional no protótipo; intensidade varia entre aparelhos</td></tr>
+      <tr><td>Persistência de preferências</td><td>Real, via <code>localStorage</code></td><td>Funcional no protótipo; migrar para armazenamento nativo</td></tr>
+      <tr><td>Notificações em segundo plano</td><td>Não implementadas</td><td>Requer regras específicas de cada sistema operacional</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Capacidades do protótipo: implementação real versus simulação.</div>
+
+  <div class="nota limite">
+    <span class="titulo-nota">Enquadramento regulatório e de comunicação</span>
+    Por se apoiar em alertas de segurança — buzinas, alarmes, choro de bebê —, o aplicativo real
+    precisará de avaliação de enquadramento como tecnologia assistiva e, conforme a jurisdição,
+    de registro sanitário. Nenhuma comunicação comercial deve afirmar que o sistema
+    <em>garante</em> segurança ou que <em>identifica todos</em> os eventos sonoros.
+    A formulação tecnicamente defensável é a de solução <strong>complementar</strong>, que
+    <strong>auxilia</strong> na percepção e <strong>pode</strong> alertar.
+  </div>
+</section>
+
+<!-- ============================ 2 ============================ -->
+<section class="secao">
+  <h2><span class="num">2.</span> Visão geral da arquitetura</h2>
+
+  <h3>2.1 Organização em camadas</h3>
+  <p>
+    O protótipo foi organizado em quatro camadas com fronteiras explícitas. A propriedade
+    central dessa organização é que a camada de dados simulados pode ser substituída por um
+    motor real de classificação <strong>sem alteração alguma nas telas</strong>, desde que o
+    contrato de dados seja respeitado.
+  </p>
+
+  <figure class="destaque">
+    <img src="img/diag-01-arquitetura.png" alt="Diagrama de arquitetura em camadas do protótipo">
+    <figcaption>Arquitetura em quatro camadas, com destaque para o bloco tracejado que identifica as capacidades ainda fora do escopo do protótipo.</figcaption>
+  </figure>
+
+  <h3>2.2 Contrato de dados da camada de simulação</h3>
+  <p>
+    A fronteira entre simulação e comportamento está definida pelo formato do objeto de som.
+    Este é o ponto exato onde o motor de classificação real deverá ser conectado:
+  </p>
+
+<pre><span class="c">// js/app.js — definição canônica de um evento sonoro</span>
+{
+  id: <span class="s">'choro'</span>,              <span class="c">// identificador interno</span>
+  label: <span class="s">'Choro de bebê'</span>,      <span class="c">// rótulo exibido ao usuário</span>
+  icone: <span class="s">'👶'</span>,                 <span class="c">// representação visual</span>
+  dispositivo: <span class="s">'chest'</span>,          <span class="c">// destino do alerta tátil</span>
+  padrao: <span class="s">'3 pulsos longos'</span>    <span class="c">// descrição legível do padrão</span>
+}</pre>
+
+  <p>
+    A camada de comportamento consome esses objetos por meio de duas funções de alto nível:
+    <code>detectarSomSimulado()</code>, que sorteia um objeto e dispara o ciclo completo de
+    feedback, e <code>detectarSomEspecifico()</code>, que recebe um objeto já escolhido — esta
+    última é exatamente a assinatura que a versão real deverá assumir, trocando o sorteio pela
+    saída do classificador.
+  </p>
+
+  <div class="nota">
+    <span class="titulo-nota">Vantagem arquitetural relevante</span>
+    A separação entre <code>detectarSomSimulado()</code> e <code>detectarSomEspecifico()</code>
+    significa que a transição para produção não exige reescrita da camada de interface. Bastará
+    reimplementar a primeira função — trocando o sorteio por inferência do modelo — e manter a
+    segunda intacta. O mesmo raciocínio se aplica à camada de vibração: o padrão tátil é obtido
+    por <code>obterPadraoVibracao(idSom)</code>, função isolada e determinística.
+  </div>
+
+  <h3>2.3 Ciclo de detecção</h3>
+  <p>
+    O scanner da tela principal executa um ciclo de sete etapas quando acionado. A Figura 3
+    detalha esse percurso, incluindo o laço de reiteração que mantém a escuta ativa.
+  </p>
+
+  <figure class="destaque">
+    <img src="img/diag-02-ciclo-deteccao.png" alt="Diagrama do ciclo de detecção de som">
+    <figcaption>Ciclo do scanner, do acionamento do botão ao registro no histórico, com o laço de reiteração a cada 5 segundos.</figcaption>
+  </figure>
+
+  <table class="dados">
+    <thead>
+      <tr><th style="width:6%">#</th><th style="width:32%">Etapa</th><th style="width:32%">Implementação</th><th style="width:30%">Correspondente na versão real</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Acionamento</td><td>Clique em <code>#btn-ouvir</code></td><td>Idêntico, acrescido de solicitação de permissão de microfone</td></tr>
+      <tr><td>2</td><td>Estado de escuta</td><td>Classe <code>.escutando</code> + ondas em animação CSS</td><td>Idêntico, mais indicador de permissão concedida</td></tr>
+      <tr><td>3</td><td>Janela de análise</td><td><code>setTimeout</code> aleatório entre 2.000 e 5.000 ms</td><td>Análise contínua por janela deslizante sobre o fluxo de áudio</td></tr>
+      <tr><td>4</td><td>Escolha do evento</td><td>Sorteio indexado em <code>SONS_SIMULADOS</code></td><td>Saída do classificador, com limiar de confiança</td></tr>
+      <tr><td>5</td><td>Feedback visual</td><td>Atualização de ícone, título e subtítulo</td><td>Idêntico</td></tr>
+      <tr><td>6</td><td>Feedback tátil</td><td><code>navigator.vibrate(padrao)</code></td><td>Idêntico, mais roteamento para o dispositivo pareado</td></tr>
+      <tr><td>7</td><td>Registro</td><td><code>localStorage</code>, máximo de 100 itens</td><td>Idêntico, com sincronização opcional em nuvem</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Etapas do ciclo de detecção e suas correspondentes na implementação de produção.</div>
+</section>
+
+<!-- ============================ 3 ============================ -->
+<section class="secao">
+  <h2><span class="num">3.</span> Navegação e arquitetura de telas</h2>
+
+  <h3>3.1 Mapa de navegação</h3>
+  <p>
+    O aplicativo é organizado em quatro telas, acessadas por uma barra de navegação inferior
+    permanentemente visível. Cada tela secundária oferece adicionalmente um botão de retorno.
+  </p>
+
+  <figure class="destaque">
+    <img src="img/diag-03-navegacao.png" alt="Diagrama de navegação entre as telas do aplicativo">
+    <figcaption>Mapa de navegação, com destaque para a barra inferior global e as rotas de retorno.</figcaption>
+  </figure>
+
+  <table class="dados">
+    <thead>
+      <tr><th style="width:20%">Tela</th><th style="width:14%">Identificador</th><th style="width:36%">Conteúdo</th><th style="width:30%">Estado quando exibida</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Início</td><td><code>tela-principal</code></td><td>Scanner, resultado da detecção e atalhos por tipo de som</td><td>Padrão na abertura; animações de escuta ativas quando solicitado</td></tr>
+      <tr><td>Histórico</td><td><code>tela-historico</code></td><td>Lista de alertas com ícone, evento, destino e horário</td><td>Recarregada a cada entrada; exibe estado vazio quando não há registros</td></tr>
+      <tr><td>Perfis</td><td><code>tela-perfis</code></td><td>Perfis de contexto, com criação de novos</td><td>Recarregada a cada entrada; modal fecha automaticamente na troca de tela</td></tr>
+      <tr><td>Ajustes</td><td><code>tela-configuracoes</code></td><td>Acessibilidade, dispositivos conectados e informações do aplicativo</td><td>Reflete o tema corrente e o estado dos dispositivos simulados</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Telas do aplicativo, respectivos identificadores e comportamento de inicialização.</div>
+
+  <h3>3.2 Regra de exclusividade visual</h3>
+  <p>
+    Apenas uma tela pode estar visível simultaneamente. A regra é implementada por uma única
+    classe CSS e aplicada de forma determinística em JavaScript:
+  </p>
+
+<pre><span class="c">/* css/style.css — a regra precisa ser declarada em ordem correta */</span>
+.tela {
+  display: none;          <span class="c">// estado padrão: oculta</span>
+  min-height: 100vh;
+  padding: 0 1rem 96px 1rem;
+  flex-direction: column;
+}
+.tela.ativa {
+  display: flex;          <span class="c">// estado exibido: apenas a tela ativa</span>
+}</pre>
+
+  <div class="nota atencao">
+    <span class="titulo-nota">Armadilha de CSS corrigida durante o desenvolvimento</span>
+    A versão inicial declarava <code>display: none</code> e <code>display: flex</code> na mesma
+    regra <code>.tela</code>. Como a segunda declaração prevalece, todas as quatro telas ficavam
+    visíveis ao mesmo tempo, sobrepondo-se — defeito detectado por inspeção automatizada. A
+    correção exigiu separar os dois estados em regras distintas. O teste de regressão
+    <em>apenas uma tela visível</em> foi incorporado à suíte de validação justamente para
+    impedir a reintrodução do problema.
+  </div>
+
+  <h3>3.3 Layout mobile permanente</h3>
+  <p>
+    O aplicativo mantém proporção de celular em qualquer tamanho de tela. No computador, ele é
+    apresentado centralizado, com moldura e fundo neutro; no aparelho, ocupa a largura total
+    disponível.
+  </p>
+
+  <figure>
+    <img src="img/fig-13-layout-desktop.png" alt="Aplicativo apresentado centralizado em tela de computador">
+    <figcaption>Aplicativo acessado por navegador de desktop, com o contêiner de 430 px centralizado e moldura discreta.</figcaption>
+  </figure>
+
+  <p>
+    A implementação usa um contêiner com largura máxima de 430 px e os elementos de
+    posicionamento absoluto — barra de navegação, notificações e modal — são dimensionados em
+    relação a essa mesma medida, de modo que permaneçam contidos na moldura do celular
+    independentemente da resolução da janela.
+  </p>
+
+  <div class="nota">
+    <span class="titulo-nota">Correção de alinhamento</span>
+    Na primeira implementação desktop, o contêiner aparecia deslocado 7 px para a esquerda do
+    centro da janela. A causa foi a barra de rolagem nativa do navegador, que reserva 15 px de
+    largura e altera o centro geométrico disponível. A correção consistiu em ocultar a barra de
+    rolagem, o que também elimina o artefato visual no celular.
+  </div>
+</section>
+
+<!-- ============================ 4 ============================ -->
+<section class="secao">
+  <h2><span class="num">4.</span> Documentação por funcionalidade</h2>
+  <p>
+    Esta seção documenta cada funcionalidade do protótipo. Para cada uma são apresentados o
+    comportamento implementado, o.print ilustrativo do estado correspondente, os dados envolvidos
+    e os requisitos para a conversão em comportamento real.
+  </p>
+
+  <h3>4.1 Scanner de ambiente</h3>
+  <p>
+    O scanner ocupa a área central da tela inicial. Seu elemento principal é o botão
+    <strong>Ouvir ambiente</strong>, que alterna o estado de escuta. Acompanhamento visual dá-se
+    por três elementos: o círculo pulsante com o ícone de microfone, as ondas concêntricas em
+    expansão e o indicador de status no cabeçalho.
+  </p>
+
+  <div class="dupla">
+    <figure>
+      <img src="img/fig-01-tela-inicial.png" alt="Tela inicial do aplicativo em estado parado">
+      <figcaption>Estado inicial: microfone inativo, sem eventos recentes.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/fig-02-scanner-escutando.png" alt="Scanner em estado de escuta com ondas em expansão">
+      <figcaption>Estado de escuta: ondas em expansão, botão em vermelho pulsante e status alterado.</figcaption>
+    </figure>
+  </div>
+
+  <table class="dados">
+    <thead><tr><th style="width:26%">Aspecto</th><th style="width:74%">Comportamento implementado</th></tr></thead>
+    <tbody>
+      <tr><td>Estado inicial</td><td><code>estado.escutando = false</code>; círculo estático; indicador do cabeçalho exibe "Microfone parado"</td></tr>
+      <tr><td>Acionamento</td><td>Alterna para escuta; aplica a classe <code>.escutando</code> ao circuito visual; botão assume a cor de alerta e a animação <code>pulsarGravar</code></td></tr>
+      <tr><td>Animação</td><td>Três ondas concêntricas com atrasos escalonados de 0 s, 0,6 s e 1,2 s, em ciclo de 2 s</td></tr>
+      <tr><td>Interrupção</td><td>Segundo toque no botão encerra a escuta, restaura o estado e cancela a detecção pendente</td></tr>
+      <tr><td>Janela de análise</td><td>Primeira detecção entre 2.000 e 5.000 ms; detecções subsequentes a cada 5.000 ms</td></tr>
+      <tr><td>Limite de duração</td><td>Estado de escuta não consome bateria nem recursos — o ciclo é puramente simulado</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Aspectos funcionais do scanner de ambiente.</div>
+
+  <h3>4.2 Detecção e identificação de eventos sonoros</h3>
+  <p>
+    A detecção produz três efeitos simultâneos: a atualização do painel de resultado, a
+    propagação do padrão tátil e o registro no histórico. O painel de resultado ocupa a região
+    central da tela e comunica o evento por ícone, rótulo e destino.
+  </p>
+
+  <figure class="destaque">
+    <img src="img/fig-03-deteccao-resultado.png" alt="Tela com resultado de detecção de som exibido">
+    <figcaption>Resultado da detecção: ícone da categoria, nome do evento e indicação do dispositivo de destino.</figcaption>
+  </figure>
+
+  <p>
+    O aplicativo trabalha com seis categorias sonoras, cada uma associada a um dispositivo de
+    destino e a um padrão vibratório próprio. Essa correspondência unívoca é o que permite ao
+    usuário diferenciar eventos sem ouvir o som original.
+  </p>
+
+  <table class="dados">
+    <thead>
+      <tr><th style="width:22%">Categoria</th><th style="width:16%">Destino</th><th style="width:30%">Padrão vibratório</th><th style="width:32%">Considerações para a implementação real</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Campainha</td><td>Wrist</td><td>Pulso longo + 2 curtos</td><td>Campainhas residenciais apresentam grande variabilidade tonal e de duração; o sistema real exigirá cadastro da campainha específica do usuário</td></tr>
+      <tr><td>Buzina</td><td>Wrist</td><td>2 pulsos rápidos</td><td>Confunção provável com alarmes e apitos; exige faixa de frequência específica</td></tr>
+      <tr><td>Choro de bebê</td><td>Chest</td><td>3 pulsos longos</td><td>Alto valor de uso e de contexto emocional; exige alta taxa de acerto, pois falso positivo causa alarme desnecessário</td></tr>
+      <tr><td>Alarme</td><td>Wrist</td><td>Sequência rápida repetitiva</td><td>Categoria crítica, onde falso negativo tem consequência direta</td></tr>
+      <tr><td>Chamada</td><td>Wrist</td><td>Vibração contínua curta</td><td>Requer detecção de chamadas, que é distintas de voz comum</td></tr>
+      <tr><td>Voz humana</td><td>Bone</td><td>Padrão de fala</td><td>Detecção de voz em ambiente ruidoso exige separaçãopectral da fala</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Categorias sonoras simuladas, destino do alerta e complexidade associada à implementação real.</div>
+
+  <div class="nota atencao">
+    <span class="titulo-nota">Observação sobre o padrão Morse</span>
+    A documentação técnica original do projeto propõe, para o Módulo II, a codificação de
+    mensagens por sequências inspiradas no código Morse. O protótipo adotou, em vez disso,
+    padrões curtos e distintos por categoria. A justificativa é de usabilidade: transmitir uma
+    palavra inteira por vibração exige tempo e atenção desproporcional para o objetivo de
+    alerta. A codificação Morse permanece como possibilidade para mensagens textuais
+    Adicionais, conforme previsto no documento de funcionamento.
+  </div>
+
+  <h3>4.3 Sinalização visual na tela</h3>
+  <p>
+    A sinalização visual é o canal principal de comunicação do aplicativo, por ser o único que
+    transmite o <em>conteúdo semântico</em> do evento — o nome da categoria, e não apenas sua
+    presença. Ela é composta por três elementos no painel de resultado e complementada por uma
+    notificação temporária.
+  </p>
+
+  <table class="dados">
+    <thead><tr><th style="width:24%">Elemento</th><th style="width:32%">Identificador</th><th style="width:44%">Comportamento</th></tr></thead>
+    <tbody>
+      <tr><td>Ícone do evento</td><td><code>#icone-resultado</code></td><td>Substituído pelo emoji da categoria detectada; 3,5 rem, com sombra suave</td></tr>
+      <tr><td>Rótulo do evento</td><td><code>#texto-resultado</code></td><td>Exibe o nome da categoria; 1,5 rem, peso 700</td></tr>
+      <tr><td>Destino</td><td><code>#subtexto-resultado</code></td><td>Indica o dispositivo que recebeu o alerta, em maiúsculas</td></tr>
+      <tr><td>Notificação</td><td><code>#toast</code></td><td>Faixa flutuante com a categoria detectada; some após 2,5 a 3 s; exposta a leitores de tela por <code>aria-live="polite"</code></td></tr>
+      <tr><td>Destaque do atalho</td><td>classe <code>.detectado</code></td><td>O botão da categoria correspondente na grade de atalhos pulsa por 900 ms</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Elementos da sinalização visual e seu comportamento.</div>
+
+  <figure>
+    <img src="img/fig-05-toast-alerta.png" alt="Notificação temporária de alerta exibida na parte inferior">
+    <figcaption>Notificação temporária ao pé da tela, anunciando a categoria detectada.</figcaption>
+  </figure>
+
+  <div class="nota">
+    <span class="titulo-nota">Preferência do usuário</span>
+    A opção <strong>Sinalização visual na tela</strong> em Ajustes permite desativar o canal
+    visual. O ajuste está implementado e controlaria a renderização do painel e da notificação
+    na versão final.
+  </div>
+
+  <h3>4.4 Sinalização tátil por vibração</h3>
+  <p>
+    Este é o único canal do protótipo cuja implementação é integralmente real. A API
+    <code>navigator.vibrate()</code> existe nas plataformas móveis e produz vibração física no
+    aparelho, o que confere ao protótipo fidelidade tátil real — desde que o aparelho reporte o
+    suporte à API.
+  </p>
+
+  <figure class="destaque">
+    <img src="img/diag-04-padroes-vibracao.png" alt="Diagrama dos padrões vibratórios por evento">
+    <figcaption>Padrões vibratórios com as durações de cada pulso e de cada pausa, na ordem em que são enviados ao aparelho.</figcaption>
+  </figure>
+
+  <p>
+    A tabela de padrões é a função <code>obterPadraoVibracao(idSom)</code>, que traduz o
+    identificador da categoria em uma matriz de durações em milissegundos, com valores positivos
+    representando vibração e negativos representando pausa.
+  </p>
+
+  <table class="dados">
+    <thead><tr><th style="width:22%">Categoria</th><th style="width:34%">Matriz transmitida ao aparelho</th><th style="width:22%">Duração total</th><th style="width:22%">Distingibilidade</th></tr></thead>
+    <tbody>
+      <tr><td>Campainha</td><td><code>[400, 200, 200, 200]</code></td><td>1,2 s</td><td>Alta — ritmo lento e assimétrico</td></tr>
+      <tr><td>Buzina</td><td><code>[300, 150, 300]</code></td><td>0,75 s</td><td>Média — dois pulsos iguais</td></tr>
+      <tr><td>Choro de bebê</td><td><code>[600, 200, 600, 200, 600]</code></td><td>2,4 s</td><td>Alta — três pulsos longos</td></tr>
+      <tr><td>Alarme</td><td><code>[200,100,200,100,200,100,200]</code></td><td>1,2 s</td><td>Alta — cadência rápida</td></tr>
+      <tr><td>Chamada</td><td><code>[500, 300, 500]</code></td><td>1,3 s</td><td>Média — semelhante à buzina</td></tr>
+      <tr><td>Voz humana</td><td><code>[300,150,300,150,300]</code></td><td>1,5 s</td><td>Média — três pulsos curtos</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Matrizes de vibração por categoria, duração total e grau de distinguibilidade perceptiva.</div>
+
+  <div class="nota atencao">
+    <span class="titulo-nota">Observação sobre distinguibilidade</span>
+    Os padrões de <strong>chamada</strong> e <strong>buzina</strong> diferem em apenas dois
+    parâmetros (duração do pulso e intervalo), e a <strong>voz humana</strong> usa a mesma
+    estrutura de três pulsos da <strong>campainha</strong>, com durações menores. A distinção
+    depende, portanto, de sutis diferenças temporais. Recomenda-se validar a perceptibilidade
+    com usuários reais e considerar remodelar os padrões — por exemplo, variando a localização
+    ou o número de pulsos — antes de consolidar o conjunto como linguagem tátil definitiva.
+  </div>
+
+  <h3>4.5 Histórico de alertas</h3>
+  <p>
+    O histórico registra todo evento detectado,allowing ao usuário consultar detectões
+    anteriores e ao equipe de desenvolvimento observar o padrão de uso. Cada item exibe o ícone da
+    categoria, seu nome, o dispositivo de destino e o horário da ocorrência.
+  </p>
+
+  <div class="dupla">
+    <figure>
+      <img src="img/fig-06-historico.png" alt="Tela de histórico com alertas registrados">
+      <figcaption>Histórico populado, com ordenação do mais recente para o mais antigo.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/fig-07-historico-vazio.png" alt="Tela de histórico vazio">
+      <figcaption>Estado vazio, exibido quando nenhum alerta foi registrado.</figcaption>
+    </figure>
+  </div>
+
+  <table class="dados">
+    <thead><tr><th style="width:28%">Aspecto</th><th style="width:72%">Comportamento implementado</th></tr></thead>
+    <tbody>
+      <tr><td>Persistência</td><td>Chave <code>vibrotatil-historico</code> em <code>localStorage</code>, como matriz JSON</td></tr>
+      <tr><td>Limite</td><td>100 registros; os mais antigos são descartados ao exceder o limite</td></tr>
+      <tr><td>Ordenação</td><td>Decrescente por data de ocorrência; o registro mais recente ocupa o topo</td></tr>
+      <tr><td>Registro</td><td>Contém identificador único, rótulo, ícone, dispositivo de destino e carimbo de data e hora</td></tr>
+      <tr><td>Estado vazio</td><td>Exibido com mensagem explicativa quando não há registros</td></tr>
+      <tr><td>Sobrevivência</td><td>Os dados permanecem após o fechamento do aplicativo, diferentemente do estado em memória</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Comportamento do registro de histórico.</div>
+
+  <h3>4.6 Perfis de contexto</h3>
+  <p>
+    Os perfis permitem adaptar o comportamento do aplicativo a diferentes situações. O
+    protótipo implementa a ativação e a criação de perfis, com quatro contextos predefinidos
+    que correspondem a situaçõesbatimentais descritas na documentação do projeto.
+  </p>
+
+  <figure class="destaque">
+    <img src="img/fig-08-perfis.png" alt="Tela de listagem de perfis de usuário">
+    <figcaption>Perfis disponíveis, com indicação do perfil ativo.</figcaption>
+  </figure>
+
+  <table class="dados">
+    <thead><tr><th style="width:18%">Perfil</th><th style="width:32%">Contexto de uso típico</th><th style="width:50%">Ajustes esperados na versão real</th></tr></thead>
+    <tbody>
+      <tr><td>Casa</td><td>Ambiente residencial econvívio familiar</td><td>Prioridade a campainha e choro de bebê; menor taxa de alarme de trânsito</td></tr>
+      <tr><td>Rua</td><td>Trânsito e áreas externas</td><td>Prioridade a buzinas; supressão de eventos domésticos; nãoSfonia do canal torácico</td></tr>
+      <tr><td>Trabalho</td><td>Ambiente profissional</td><td>Prioridade a chamada e voz; canal de voz humana ativo</td></tr>
+      <tr><td>Noite</td><td>Período noturno</td><td>Intensidade vibratória reduzida; apenas eventos críticos</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Perfis predefinidos e o comportamento esperado de cada um na versão final.</div>
+
+  <figure>
+    <img src="img/fig-09-modal-novo-perfil.png" alt="Modal de criação de novo perfil">
+    <figcaption>Modal de criação de perfil, com campo de nome e ações de confirmação e cancelamento.</figcaption>
+  </figure>
+
+  <div class="nota">
+    <span class="titulo-nota">Estado de implementação</span>
+    A interface de perfis está completa: seleção do perfil ativo, criação por modal, feedback
+    por notificação e persistência do identificador do perfil ativo. O que não está implementado
+    é o <strong>efeito do perfil sobre o comportamento</strong> — no protótipo, ativar "Rua" ou
+    "Noite" não altera os padrões vibratórios, pois não há motor de classificação ao qual aplicar
+    esses parâmetros. Na versão real, cada perfil deverá carregar a tabela de intensidades, a
+    lista de categorias ativas e o destino preferencial de cada evento.
+  </div>
+
+  <h3>4.7 Ajustes e acessibilidade</h3>
+  <p>
+    A tela de Ajustes concentra as preferências do usuário e as informações do aplicativo. Os
+    controles se dividem em três blocos.
+  </p>
+
+  <div class="dupla">
+    <figure>
+      <img src="img/fig-10-ajustes-escuro.png" alt="Tela de ajustes em tema escuro">
+      <figcaption>Ajustes no tema escuro, que é o padrão do aplicativo.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/fig-11-ajustes-claro.png" alt="Tela de ajustes em tema claro">
+      <figcaption>Ajustes no tema claro, disponível por preferência do usuário.</figcaption>
+    </figure>
+  </div>
+
+  <table class="dados">
+    <thead>
+      <tr><th style="width:26%">Controle</th><th style="width:16%">Identificador</th><th style="width:16%">Estado inicial</th><th style="width:42%">Efeito</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Vibração dos alertas</td><td><code>#toggle-vibracao</code></td><td>Ativado</td><td>Controla a chamada a <code>navigator.vibrate()</code></td></tr>
+      <tr><td>Sinalização visual</td><td><code>#toggle-visual</code></td><td>Ativado</td><td>Controla a renderização do painel e da notificação</td></tr>
+      <tr><td>Modo escuro</td><td><code>#toggle-tema</code></td><td>Ativado</td><td>Alterna o atributo <code>data-tema</code> no elemento raiz e sincroniza a cor da barra de status do sistema</td></tr>
+      <tr><td>Wrist / Chest / Bone</td><td><code>#toggle-wrist</code> e afins</td><td>Wrist ativado</td><td>Simula a conexão do dispositivo e emite notificação de confirmação</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Controles da tela de Ajustes, estado inicial e efeito de cada um.</div>
+
+  <p>
+    A preferência de tema é persistida na chave <code>vibrotatil-tema</code>, de modo que a
+    escolha do usuário é restaurada em sessões subsequentes. O modo escuro é o padrão de
+    fábrica, aplicado já no elemento raiz do documento para evitar o breve|display de tema claro
+    durante a carga da página.
+  </p>
+
+  <figure>
+    <img src="img/fig-12-tema-claro.png" alt="Tela inicial no tema claro">
+    <figcaption>A tela inicial no tema claro, evidenciando a inversão completa da paleta.</figcaption>
+  </figure>
+
+  <div class="nota">
+    <span class="titulo-nota">Acessibilidade aplicada</span>
+    O protótipoincorpora desde a concepção os requisitos de acessibilidade compatíveis com a
+    natureza do produto: alvos de toque dimensionados para uso com uma única mão, contraste
+    entre texto e fundo verificado em ambos os temas, notificação com <code>aria-live</code> para
+    anúncio por leitor de tela, e presença de <code>role="alert"</code> nos elementos de
+    mensagem. A tipografia parte de 1rem como base, coherente com a preferência por tamanho
+    grande do público-alvo.
+  </div>
+</section>
+
+<!-- ============================ 5 ============================ -->
+<section class="secao">
+  <h2><span class="num">5.</span> Base técnica</h2>
+
+  <h3>5.1 Estrutura do repositório</h3>
+  <p>
+    O projeto é composto por três arquivos-fonte, dois scripts de apoio à engenharia e a
+    documentação. Nenhuma etapa de compilação ou empacotamento é necessária: o código é
+    entregue em sua forma executável.
+  </p>
+
+  <figure class="destaque">
+    <img src="img/diag-05-estrutura.png" alt="Diagrama da estrutura de pastas do repositório">
+    <figcaption>Árvore do repositório com a responsabilidade de cada arquivo.</figcaption>
+  </figure>
+
+  <table class="dados">
+    <thead><tr><th style="width:26%">Arquivo</th><th style="width:12%">Linhas</th><th style="width:62%">Responsabilidade</th></tr></thead>
+    <tbody>
+      <tr><td><code>index.html</code></td><td>207</td><td>Estrutura das quatro telas, barra de navegação global, modal de perfil, notificação e marcação semântica</td></tr>
+      <tr><td><code>css/style.css</code></td><td>779</td><td>Design tokens, layout, componentes, animações e regras de impressão</td></tr>
+      <tr><td><code>js/app.js</code></td><td>467</td><td>Estado, navegação, renderização das listas, simulação de eventos e persistência</td></tr>
+      <tr><td><code>inspecionar.js</code></td><td>—</td><td>Validação automatizada com Playwright: navegação, renderização, interação e console</td></tr>
+      <tr><td><code>capturar.js</code></td><td>—</td><td>Geração das capturas de tela usadas neste documento</td></tr>
+      <tr><td><code>gerar-diagramas.js</code></td><td>—</td><td>Geração programática dos cinco diagramas em SVG</td></tr>
+      <tr><td><code>docs/</code></td><td>—</td><td>Este documento, sua fonte editável e os recursos gráficos</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Arquivos do repositório e suas responsabilidades.</div>
+
+  <h3>5.2 Design tokens</h3>
+  <p>
+    A paleta, a tipografia, os raios de arredondamento e as transições são definidos como
+    propriedades customizadas na raiz do documento. Essa centralização permite que o tema
+    claro e o escuro difiram apenas nos valores das variáveis, sem duplicação de regras.
+  </p>
+
+  <table class="dados">
+    <thead><tr><th style="width:26%">Token</th><th style="width:24%">Valor claro</th><th style="width:24%">Valor escuro</th><th style="width:26%">Aplicação</th></tr></thead>
+    <tbody>
+      <tr><td><code>--cor-primaria</code></td><td>#0b6ba4</td><td>#0b6ba4</td><td>Marca, botões primários, ícones de navegação ativos</td></tr>
+      <tr><td><code>--cor-secundaria</code></td><td>#2dd4bf</td><td>#2dd4bf</td><td>Destaques de ação, vibração visual, indicadores de sucesso</td></tr>
+      <tr><td><code>--cor-fundo</code></td><td>#f4f7fa</td><td>#0b1220</td><td>Fundo da aplicação</td></tr>
+      <tr><td><code>--cor-superficie</code></td><td>#ffffff</td><td>#1e293b</td><td>Cartões, listas e barra de navegação</td></tr>
+      <tr><td><code>--cor-texto</code></td><td>#1f2937</td><td>#e2e8f0</td><td>Texto principal</td></tr>
+      <tr><td><code>--cor-texto-suave</code></td><td>#6b7280</td><td>#94a3b8</td><td>Textos secundários e legendas</td></tr>
+      <tr><td><code>--cor-destaque</code></td><td>#f59e0b</td><td>#f59e0b</td><td>Avisos, marcações de pendência</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Design tokens e seus valores por tema.</div>
+
+  <h3>5.3 Persistência</h3>
+  <p>
+    O protótipo utiliza <code>localStorage</code> como mecanismo de persistência, com duas chaves
+    e finalidades distintas.
+  </p>
+
+  <table class="dados">
+    <thead><tr><th style="width:26%">Chave</th><th style="width:20%">Tipo</th><th style="width:54%">Conteúdo e finalidade</th></tr></thead>
+    <tbody>
+      <tr><td><code>vibrotatil-tema</code></td><td>Texto</td><td>Valores <code>claro</code> ou <code>escuro</code>. Preserva a preferência de tema entre sessões</td></tr>
+      <tr><td><code>vibrotatil-historico</code></td><td>Matriz JSON</td><td>Até 100 registros de eventos detectados, com identificador, rótulo, ícone, dispositivo e carimbo de data e hora</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Chaves de armazenamento local utilizadas pelo protótipo.</div>
+
+  <p>
+    O restante do estado — perfis, dispositivos conectados, preferências de vibração e sinalização
+    — permanece em memória e é reiniciado a cada abertura. Essa separação é intencional: somente
+    os dados que o usuário perderia de formaizo frustrante são persistidos.
+  </p>
+
+  <h3>5.4 Decisões de engenharia e alternativas descartadas</h3>
+  <p>
+    Durante o desenvolvimento, três decisões merecem registro por afetarem a portabilidade do
+    código.
+  </p>
+
+  <table class="dados">
+    <thead>
+      <tr><th style="width:24%">Decisão</th><th style="width:20%">Alternativa descartada</th><th style="width:56%">Justificativa</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Script clássico, sem módulos</td>
+        <td><code>&lt;script type="module"&gt;</code></td>
+        <td>Os navegadores bloqueiam módulos ES por política de origem cruzada quando a página é aberta diretamente do sistema de arquivos. A conversão para script clássico eliminou a falha, que impedia a totalidade das funcionalidades de operar.</td>
+      </tr>
+      <tr>
+        <td>Barra de navegação fora das seções</td>
+        <td>Nav aninhada na tela inicial</td>
+        <td>Quando aninhada, a barra desaparecia ao navegar, já que sua seção deixava de estar visível. Externalizá-la como elemento de nível superior mantém a navegação disponível em todas as telas.</td>
+      </tr>
+      <tr>
+        <td>Barra de rolagem oculta</td>
+        <td>Barra de rolagem nativa</td>
+        <td>A barra nativa reserva 15 px de largura, deslocando o contêiner do celular em relação ao centro da janela. A ocultação elimina o deslocamento e o artefato visual.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Decisões de engenharia e alternativas avaliadas.</div>
+
+  <div class="nota">
+    <span class="titulo-nota">Efeito colateral benéfico</span>
+    A eliminação dos módulos ES em favor de um script único também ampliou a portabilidade: o
+    aplicativo pode ser aberto por duplo clique, distribuído como pasta, incorporado em
+    aplicativo móvel por <em>WebView</em> ou empacotado como aplicativo web progressivo sem
+    qualquer etapa de compilação. Para o empacotamento nativo, porém, o código precisará ser
+    reescrito nas linguagens específicas de cada plataforma.
+  </div>
+</section>
+
+<!-- ============================ 6 ============================ -->
+<section class="secao">
+  <h2><span class="num">6.</span> Validação automatizada</h2>
+
+  <h3>6.1 Suíte de verificação</h3>
+  <p>
+    O protótipo é acompanhado de um script de validação automatizada que executa o aplicativo em
+    navegador real e verifica seu comportamento. O script é capaz de detectar regressões de
+    interface que passariam despercebidas em inspeção manual — a sobreposição de telas e o
+    desalinhamento do contêiner, por exemplo, foram encontrados por essa via.
+  </p>
+
+<pre><span class="c"># Execução</span>
+npm install
+npx playwright install chromium
+node inspecionar.js</pre>
+
+  <h3>6.2 Asserções verificadas</h3>
+  <p>
+    A última execução, sobre o commit <code>815d661</code>, apresentou o seguinte resultado, sem
+    qualquer erro de console.
+  </p>
+
+  <table class="dados">
+    <thead><tr><th style="width:44%">Asserção</th><th style="width:14%">Resultado</th><th style="width:42%">O que previne</th></tr></thead>
+    <tbody>
+      <tr><td>Apenas uma tela visível por vez</td><td><span class="rotulo ok">APROVADA</span></td><td>Regressão da sobreposição de telas</td></tr>
+      <tr><td>Seis atalhos renderizados</td><td><span class="rotulo ok">APROVADA</span></td><td>Falha de carga do script de comportamento</td></tr>
+      <tr><td>Navegação entre as quatro telas</td><td><span class="rotulo ok">APROVADA</span></td><td>Quebra de identificadores de seção</td></tr>
+      <tr><td>Item ativo acompanha a tela</td><td><span class="rotulo ok">APROVADA</span></td><td> dessincronização entre conteúdo e indicador</td></tr>
+      <tr><td>Quatro perfis renderizados</td><td><span class="rotulo ok">APROVADA</span></td><td>Falha na inicialização dos dados</td></tr>
+      <tr><td>Estado de escuta ativado</td><td><span class="rotulo ok">APROVADA</span></td><td>Falha no controle de estado do scanner</td></tr>
+      <tr><td>Detecção produz título, subtítulo e notificação</td><td><span class="rotulo ok">APROVADA</span></td><td>Falha no encadeamento do ciclo de feedback</td></tr>
+      <tr><td>Registro no histórico</td><td><span class="rotulo ok">APROVADA</span></td><td>Falha na persistência de eventos</td></tr>
+      <tr><td>Modal abre e fecha</td><td><span class="rotulo ok">APROVADA</span></td><td>Tela bloqueada por sobreposição do modal</td></tr>
+      <tr><td>Alternância de tema nos dois sentidos</td><td><span class="rotulo ok">APROVADA</span></td><td>Falha na aplicação do tema</td></tr>
+      <tr><td>Contêiner centralizado no desktop</td><td><span class="rotulo ok">APROVADA</span></td><td>Desalinhamento do layout fixo</td></tr>
+      <tr><td>Barra de navegação contida no contêiner</td><td><span class="rotulo ok">APROVADA</span></td><td>Elemento de interface ultrapassando a moldura</td></tr>
+      <tr><td>Ausência de erros de console</td><td><span class="rotulo ok">APROVADA</span></td><td>Falhas silenciosas de execução</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Asserções da suíte de validação automatizada e o resultado da última execução.</div>
+
+  <h3>6.3 Limitações da validação</h3>
+  <p>
+    A suíte cobre comportamento observável, mas não substitui a avaliação com usuários reais. As
+    seguintes dimensões permanecem não verificadas:
+  </p>
+  <ul>
+    <li>Compreensão efetiva dos padrões táteis por pessoas com deficiência auditiva;</li>
+    <li>Tempo de aprendizagem necessário para associar cada padrão à sua categoria;</li>
+    <li>Conforto e fadiga relacionada ao uso prolongado da Estimulação torácica;</li>
+    <li>Comportamento da vibração em aparelhos reais, dada a variabilidade de intensidade entre fabricantes;</li>
+    <li>Desempenho com conteúdo da tela em corpos de texto longos ou em modo de alto contraste do sistema.</li>
+  </ul>
+</section>
+
+<!-- ============================ 7 ============================ -->
+<section class="secao">
+  <h2><span class="num">7.</span> Roadmap: do protótipo à versão real</h2>
+
+  <h3>7.1 Caminho de evolução</h3>
+  <p>
+    A transição do protótipo para o aplicativo funcional pode ser organizada em cinco camadas,
+    cada uma com dependência de anterior. O vantajoso dessa ordem é que a camada de interface
+    — que constitui a totalidade do trabalho realizado até aqui — permanece válida em todas as
+    etapas.
+  </p>
+
+  <table class="dados">
+    <thead>
+      <tr><th style="width:6%">#</th><th style="width:22%">Camada</th><th style="width:36%">Requisitos técnicos</th><th style="width:36%">Dependências e riscos</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td><td><strong>Captura de áudio real</strong></td>
+        <td><code>getUserMedia()</code> com a API Web Audio, <code>AnalyserNode</code> e Permission API</td>
+        <td>Exige contexto seguro (HTTPS), tratamento de permissão negada e consumo contínuo de bateria. Deve ser implementada como camada isolada, atrás do mesmo contrato de dados já existente.</td>
+      </tr>
+      <tr>
+        <td>2</td><td><strong>DSP e pré-processamento</strong></td>
+        <td>FFT para análise espectral, filtragem passa-banda por categoria, compressão dinâmica e normalização</td>
+        <td>Cada categoria exige faixa de frequência característica. Carregamento do processamento deve ocorrer em <em>worker</em> para não bloquear a interface.</td>
+      </tr>
+      <tr>
+        <td>3</td><td><strong>Classificação</strong></td>
+        <td>Modelo treinado, base de dados rotulada por categoria e por ambiente, limiar de confiança</td>
+        <td>É a camada de maior risco. O volume e a diversidade da base de dados determinam a taxa de acerto em ambiente real. Avaliar a generalização antes de afinar.</td>
+      </tr>
+      <tr>
+        <td>4</td><td><strong>Integração com hardware</strong></td>
+        <td>Bluetooth Low Energy com protocolo proprietário e camada de pareamento</td>
+        <td>A Web Bluetooth API é limitada e não disponível em todas as plataformas. A comunicação com dispositivos próprios pode exigir desenvolvimento nativo ou biblioteca intermediária.</td>
+      </tr>
+      <tr>
+        <td>5</td><td><strong>Empacotamento e distribuição</strong></td>
+        <td>Aplicativo web progressivo com manifesto e <em>service worker</em>, ou desenvolvimento nativo em Android e iOS</td>
+        <td>O aplicativo web progressivo oferece distribuição imediata eplicitação de ícone na tela inicial. O desenvolvimento nativo é necessário para desempenho contínuo do microfone em segundo plano.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Camadas de evolução do protótipo até a versão funcional, com requisitos e riscos.</div>
+
+  <h3>7.2 Riscos técnicos identificados</h3>
+
+  <table class="dados">
+    <thead><tr><th style="width:26%">Risco</th><th style="width:14%">Severidade</th><th style="width:60%">Mitigação proposta</th></tr></thead>
+    <tbody>
+      <tr><td>Execução em segundo plano</td><td><span class="rotulo futuro">ALTA</span></td><td>Sistemas operacionais móveis restringem o uso contínuo do microfone em segundo plano, especialmente em iOS. A solução passa por desenvolvimento nativo ou por um modelo de operação em janela ativa, com notificação persistente ao usuário.</td></tr>
+      <tr><td>Consumo de bateria</td><td><span class="rotulo futuro">ALTA</span></td><td>Captura contínua de áudio consumirá energia de forma significativa. Demandará análise do perfil de consumo, decisão do usuário sobre duração da sessão e possibilidade de operação por activity contínua.</td></tr>
+      <tr><td>Variabilidade da vibração</td><td><span class="rotulo plano">MÉDIA</span></td><td>Cada fabricante implementa a API de vibração de forma particular. O protótipo não pode normalizar a intensidade percebida. Testes em aparelhos reais são indispensáveis, e pode ser necessário um perfil de ajuste por fabricante.</td></tr>
+      <tr><td>Confiabilidade da classificação</td><td><span class="rotulo futuro">ALTA</span></td><td>Falso negativo em evento de segurança tem consequência relevante. O sistema deve exibir o grau de confiança da detecção e admitir que opera como apoio, jamais como garantia.</td></tr>
+      <tr><td>Privacidade dos dados sonoros</td><td><span class="rotulo futuro">ALTA</span></td><td>Capturar áudio ambiente implica tratar dados de terceiros e potencialmente de crianças. Deve ser definido se o processamento é local, se há gravação, por quanto tempo os dados permanecem e como são eliminados.</td></tr>
+      <tr><td>Confundibilidade dos padrões táteis</td><td><span class="rotulo plano">MÉDIA</span></td><td>Identificado na seção 4.4: os padrões de chamada, buzina e voz são estruturalmente próximos. Deve-se remodelar o conjunto e validá-lo com usuários antes de consolidá-lo.</td></tr>
+      <tr><td>Enquadramento regulatório</td><td><span class="rotulo plano">MÉDIA</span></td><td>Depende da jurisdição e da classificação do produto como tecnologia assistiva. Deve ser avaliado antes da distribuição comercial, com revisão da comunicação de marketing.</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Riscos técnicos identificados na transição para a versão real, com severidade e mitigação.</div>
+
+  <h3>7.3 Estado atual e próximos passos</h3>
+  <p>
+    O Módulo III encontra-se com a camada de interface concluída e documentada, e com a camada de
+    comportamento implementada sobre dados simulados. As próximas etapas, em ordem de
+    prioridade, são:
+  </p>
+  <ol>
+    <li><strong>Validação com usuários</strong> — aplicar o protótipo a pessoas com diferentes perfis de deficiência auditiva, medindo tempo de aprendizagem dos padrões táteis e inteligibilidade dos rótulos;</li>
+    <li><strong>Empacotamento como aplicativo web progressivo</strong> — permitir instalação na tela inicial, com ícone próprio e abertura sem barra de navegador;</li>
+    <li><strong>Captura de áudio real</strong> — implementar a camada 1 do roadmap, mantendo o contrato de dados existente e protectedzando a interface contra regressões;</li>
+    <li><strong>Definição do conjunto de categorias prioritário</strong> — escolher dois ou três eventos para validar o modelo, em vez de perseguir as seis simultaneamente;</li>
+    <li><strong>Reestruturação dos padrões táteis</strong> — redesenhar o conjunto para eliminar as sobreposições apontadas na seção 4.4.</li>
+  </ol>
+
+  <div class="nota">
+    <span class="titulo-nota">Observação sobre a documentação de origem</span>
+    Este documento complements o material institucional do projeto. Em particular, a
+    documentação técnica original do Módulo III descreve o aplicativo como estando em
+    aproximadamente 70% de desenvolvimento. A presente análise não contradiz esse indicador:
+    a camada de interface, que constitui a parcela relevante desse percentual, está de fato
+    implementada e validada. O que permanece pendente, conforme detalhado na seção 7, é
+    precisamente a camada de processamento de áudio e classificação, que não é objeto de um
+    protótipo de interface.
+  </div>
+</section>
+
+<!-- ============================ REFERÊNCIAS ============================ -->
+<section class="secao">
+  <h2><span class="num">8.</span> Referências</h2>
+
+  <table class="dados">
+    <thead><tr><th style="width:30%">Item</th><th style="width:70%">Referência</th></tr></thead>
+    <tbody>
+      <tr><td>Protótipo publicado</td><td>https://jaimevendrame.github.io/vibrotatil/</td></tr>
+      <tr><td>Repositório</td><td>https://github.com/jaimevendrame/vibrotatil</td></tr>
+      <tr><td>Commit documentado</td><td><code>815d661</code> — branch <code>main</code></td></tr>
+      <tr><td>Documento institucional</td><td>VIBROTÁTIL® — apresentação do projeto, G-TEC do Brasil S.A., 2026</td></tr>
+      <tr><td>Documento técnico do módulo</td><td>Funcionamento VIBROTÁTIL — descrição dos módulos I, II e III</td></tr>
+      <tr><td>Organização</td><td>G-TEC do Brasil S.A. — CNPJ 84.846.278/0001-74, Av. Capitão Índio Bandeira, 540 L II, Campo Mourão, Paraná</td></tr>
+      <tr><td>Tecnologias</td><td>HTML5, CSS3 com propriedades customizadas, JavaScript ES2020, Playwright 1.x (validação e captura)</td></tr>
+      <tr><td>Referência de vibração</td><td>API <code>navigator.vibrate()</code> — W3C Vibration Control, com suporte por plataforma</td></tr>
+    </tbody>
+  </table>
+  <div class="tabela-captura">Referências técnicas e institucionais.</div>
+
+  <div class="nota">
+    <span class="titulo-nota">Controle de versão desta documentação</span>
+    As capturas de tela deste documento refletem o estado do commit <code>815d661</code>. Alterações
+    posteriores na interface invalidam as imagens; a regeneração é feita executando
+    <code>node capturar.js</code> e <code>node gerar-diagramas.js</code>, seguidos de
+    <code>node docs/gerar-pdf.js</code>. A data de emissão deve ser atualizada a cada revisão.
+  </div>
+
+  <p style="margin-top:8mm; text-align:center; color:#5a6b82; font-size:9pt;">
+    Fim do documento · VIBROTÁTIL® Connect — Protótipo do Módulo III · versão 1.0<br>
+    © 2026 G-TEC do Brasil S.A. Todos os direitos reservados.
+  </p>
+</section>
+
+</body>
+</html>

@@ -2,6 +2,17 @@
 
 Protótipo simulado da interface do aplicativo móvel do **Módulo III** do projeto VIBROTÁTIL®, desenvolvido pela G-TEC do Brasil S.A.
 
+## 📄 Documentação técnica
+
+**[VIBROTÁTIL-Connect-Modulo-III.pdf](docs/VIBROTATIL-Connect-Modulo-III.pdf)** — documento técnico completo (42 páginas) com:
+
+- screenshots de todas as funcionalidades;
+- 5 diagramas de arquitetura, fluxo de detecção, navegação, padrões vibratórios e estrutura do repositório;
+- documentação detalhada das 7 funcionalidades, com comportamento, dados envolvidos e requisitos para a versão real;
+- base técnica (design tokens, persistência, decisões de engenharia);
+- resultados da validação automatizada;
+- roadmap do protótipo até a versão funcional, com riscos e severidade.
+
 ## O que é
 
 Aplicativo de celular que simula a **identificação de sons** do ambiente, convertendo-os em:
@@ -52,6 +63,15 @@ node inspecionar.js
 ## Publicação
 
 Hospedado via **GitHub Pages**.
+
+## Geração da documentação
+
+```bash
+node capturar.js          # gera as capturas em docs/img/
+node gerar-diagramas.js   # gera os 5 diagramas SVG
+node svg-para-png.js      # converte os diagramas para PNG
+node docs/gerar-pdf.js    # gera o PDF final
+```
 
 ---
 

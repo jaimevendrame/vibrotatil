@@ -11,6 +11,12 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "docx": "^9.15.4",
+    "pdf-lib": "^1.17.1",
     "playwright": "^1.65.1"
+  },
+  "dependencies": {
+    "canvas": "^3.2.3",
+    "pdfjs-dist": "^4.0.379"
   }
 }
