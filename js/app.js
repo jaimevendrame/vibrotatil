@@ -1,5 +1,5 @@
 // ============================================================
-// VIBROTÁTIL Connect — App móvel (Módulo III) — Protótipo de interface
+// VIBROTÁTIL Connect, App móvel (Módulo III), protótipo de interface
 // Simula a identificação de sons pelo smartphone, feedback visual
 // e vibração do aparelho. Não usa microfone real, Bluetooth nem IA.
 // ============================================================

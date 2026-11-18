@@ -44,4 +44,4 @@
     <tspan font-weight="700" fill="#2dd4bf">Fora do versionamento:</tspan>
     <tspan> node_modules/ (19 MB), package-lock.json, screenshots de diagnóstico</tspan>
   </text>
-  <text x="30" y="596" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Figura 6 — Árvore do repositório. Apenas arquivos-fonte e de documentação são versionados.</text></svg>
+  <text x="30" y="596" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Figura 6. Árvore do repositório. Apenas arquivos-fonte e de documentação são versionados.</text></svg>

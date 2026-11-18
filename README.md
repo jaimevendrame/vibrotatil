@@ -1,12 +1,12 @@
-# VIBROTÁTIL® Connect — App Módulo III
+# VIBROTÁTIL® Connect, App Módulo III
 
 Protótipo simulado da interface do aplicativo móvel do **Módulo III** do projeto VIBROTÁTIL®, desenvolvido pela G-TEC do Brasil S.A.
 
 ## 📄 Documentação técnica
 
-**[VIBROTÁTIL-Connect-Modulo-III.pdf](docs/VIBROTATIL-Connect-Modulo-III.pdf)** — documento técnico completo (42 páginas) com:
+**[VIBROTATIL-Connect-Modulo-III.pdf](docs/VIBROTATIL-Connect-Modulo-III.pdf)**, documento técnico completo (42 páginas) com:
 
-- screenshots de todas as funcionalidades;
+- capturas de tela de todas as funcionalidades;
 - 5 diagramas de arquitetura, fluxo de detecção, navegação, padrões vibratórios e estrutura do repositório;
 - documentação detalhada das 7 funcionalidades, com comportamento, dados envolvidos e requisitos para a versão real;
 - base técnica (design tokens, persistência, decisões de engenharia);
@@ -43,7 +43,7 @@ Todos os sons e dispositivos são simulados com dados fictícios, apenas para va
 
 ## Como executar localmente
 
-Abra `index.html` diretamente no navegador — não requer servidor nem build.
+Abra `index.html` diretamente no navegador, sem necessidade de servidor ou build.
 
 ```bash
 # opcional: servir via HTTP
@@ -58,6 +58,12 @@ O projeto inclui um script de verificação com Playwright que checa navegação
 npm install
 npx playwright install chromium
 node inspecionar.js
+```
+
+A varredura de texto também é automatizada, com o objetivo de identificar marcadores de escrita assistida por IA e uso decorativo de travessões:
+
+```bash
+node docs/verificar-texto.js
 ```
 
 ## Publicação

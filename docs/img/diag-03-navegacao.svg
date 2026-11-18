@@ -29,4 +29,4 @@
     <tspan x="30" dy="18">(2) o modal de perfil fecha automaticamente ao trocar de tela;</tspan>
     <tspan x="30" dy="18">(3) o item ativo da barra inferior acompanha a tela exibida.</tspan>
   </text>
-  <text x="30" y="436" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Figura 4 — Navegação. A barra inferior fica fora das seções para permanecer visível em todas as telas.</text></svg>
+  <text x="30" y="436" font-family="Segoe UI, system-ui, sans-serif" font-size="12" fill="#94a3b8">Figura 4. Navegação. A barra inferior fica fora das seções para permanecer visível em todas as telas.</text></svg>

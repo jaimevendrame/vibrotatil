@@ -46,11 +46,11 @@ function diagramaArquitetura() {
   const camadas = [
     {
       y: 120, h: 92, cor: C.primaria, titulo: 'CAMADA DE INTERFACE (HTML + CSS)',
-      itens: ['index.html — 4 telas', 'css/style.css — design tokens', 'Layout mobile fixo 430px', 'Tema claro/escuro']
+      itens: ['index.html: 4 telas', 'css/style.css: design tokens', 'Layout mobile fixo 430px', 'Tema claro/escuro']
     },
     {
       y: 232, h: 92, cor: C.secundaria, titulo: 'CAMADA DE COMPORTAMENTO (JavaScript)',
-      itens: ['app.js — 12 funções', 'Navegação e renderização', 'Simulação de detecção', 'Feedback tátil e visual']
+      itens: ['app.js: 12 funções', 'Navegação e renderização', 'Simulação de detecção', 'Feedback tátil e visual']
     },
     {
       y: 344, h: 92, cor: C.destaque, titulo: 'CAMADA DE DADOS SIMULADOS',
@@ -63,7 +63,7 @@ function diagramaArquitetura() {
   ];
 
   let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
-  svg += cabecalho('Arquitetura em Camadas', 'Organização do protótipo — cada camada é independente e substituível', W);
+  svg += cabecalho('Arquitetura em Camadas', 'Organização do protótipo, em que cada camada é independente e substituível', W);
 
   camadas.forEach((camada, i) => {
     svg += `
@@ -107,7 +107,7 @@ function diagramaArquitetura() {
   <text x="716" y="388" ${F} font-size="11" fill="${C.textoSuave}" font-style="italic">simulação pela real não</text>
   <text x="716" y="406" ${F} font-size="11" fill="${C.textoSuave}" font-style="italic">altera as telas.</text>`;
 
-  svg += rodape('Figura 2 — Camadas do protótipo. A camada de dados simulados é o ponto de substituição pelo motor real de classificação.', W, H);
+  svg += rodape('Figura 2. Camadas do protótipo. A camada de dados simulados é o ponto de substituição pelo motor real de classificação.', W, H);
   svg += `</svg>`;
 
   fs.writeFileSync(`${IMG}/diag-01-arquitetura.svg`, svg);
@@ -152,7 +152,7 @@ function diagramaCiclo() {
   <path d="M 110 616 L 60 616 L 60 148 L 108 148" fill="none" stroke="${C.secundaria}" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#seta2)"/>
   <text x="20" y="390" ${F} font-size="11" fill="${C.secundaria}" transform="rotate(-90 20 390)" text-anchor="middle">reincide a cada 5 s enquanto escutando</text>`;
 
-  svg += rodape('Figura 3 — Ciclo do scanner. O passo 4 (sorteio) é o ponto exato a substituir por classificação real via DSP + IA.', W, H);
+  svg += rodape('Figura 3. Ciclo do scanner. O passo 4 (sorteio) é o ponto exato a substituir por classificação real via DSP + IA.', W, H);
   svg += `</svg>`;
   fs.writeFileSync(`${IMG}/diag-02-ciclo-deteccao.svg`, svg);
   console.log('✓ diag-02-ciclo-deteccao.svg');
@@ -210,7 +210,7 @@ function diagramaNavegacao() {
     <tspan x="30" dy="18">(3) o item ativo da barra inferior acompanha a tela exibida.</tspan>
   </text>`;
 
-  svg += rodape('Figura 4 — Navegação. A barra inferior fica fora das seções para permanecer visível em todas as telas.', W, H);
+  svg += rodape('Figura 4. Navegação. A barra inferior fica fora das seções para permanecer visível em todas as telas.', W, H);
   svg += `</svg>`;
   fs.writeFileSync(`${IMG}/diag-03-navegacao.svg`, svg);
   console.log('✓ diag-03-navegacao.svg');
@@ -222,7 +222,7 @@ function diagramaNavegacao() {
 function diagramaVibracao() {
   const W = 980, H = 620;
   let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
-  svg += cabecalho('Padrões Vibratórios por Evento', 'Sequências passadas ao navigator.vibrate() — duração em milissegundos', W);
+  svg += cabecalho('Padrões Vibratórios por Evento', 'Sequências passadas ao navigator.vibrate(), com duração em milissegundos', W);
 
   const padroes = [
     { nome: 'Campainha', icone: '🔔', dest: 'WRIST', seq: [400, 200, 200, 200], desc: 'Pulso longo + 2 curtos' },
@@ -270,7 +270,7 @@ function diagramaVibracao() {
   <text x="366" y="${y + 34}" ${F} font-size="12" fill="${C.textoSuave}">silêncio (pausa negativa)</text>
   <text x="48" y="${y + 62}" ${F} font-size="11" fill="${C.textoSuave}">Otimização planejada: substituir as sequências longas por padrões distintos por device, evitando que o usuário precise distinguir vibrações quase idênticas.</text>`;
 
-  svg += rodape('Figura 5 — Padrões táteis. A escolha de 6 categorias distintas evita sobreposição de sequências; a lista completa está em js/app.js → obterPadraoVibracao().', W, H);
+  svg += rodape('Figura 5. Padrões táteis. A escolha de 6 categorias distintas evita sobreposição de sequências; a lista completa está em js/app.js → obterPadraoVibracao().', W, H);
   svg += `</svg>`;
   fs.writeFileSync(`${IMG}/diag-04-padroes-vibracao.svg`, svg);
   console.log('✓ diag-04-padroes-vibracao.svg');
@@ -324,7 +324,7 @@ function diagramaEstrutura() {
     <tspan> node_modules/ (19 MB), package-lock.json, screenshots de diagnóstico</tspan>
   </text>`;
 
-  svg += rodape('Figura 6 — Árvore do repositório. Apenas arquivos-fonte e de documentação são versionados.', W, H);
+  svg += rodape('Figura 6. Árvore do repositório. Apenas arquivos-fonte e de documentação são versionados.', W, H);
   svg += `</svg>`;
   fs.writeFileSync(`${IMG}/diag-05-estrutura.svg`, svg);
   console.log('✓ diag-05-estrutura.svg');

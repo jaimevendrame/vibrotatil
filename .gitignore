@@ -19,3 +19,6 @@ Thumbs.db
 # Capturas de diagnostico (substituidas pelas de docs/img)
 shot-desktop.png
 shot-principal.png
+
+# Script de correcao pontual (uso unico, ja aplicado)
+docs/corrigir-texto.js

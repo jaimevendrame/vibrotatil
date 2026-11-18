@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>VIBROTÁTIL Connect — Protótipo do Módulo III</title>
+<title>VIBROTÁTIL Connect, Protótipo do Módulo III</title>
 <style>
   :root {
     --azul: #0b6ba4;
@@ -168,7 +168,7 @@
 
   <div class="capa-meio">
     <div class="capa-eyebrow">Documento técnico de protótipo</div>
-    <div class="capa-titulo">Protótipo de Interface do Aplicativo Móvel — Módulo III</div>
+    <div class="capa-titulo">Protótipo de Interface do Aplicativo Móvel, Módulo III</div>
     <div class="capa-linha"></div>
     <div class="capa-subtitulo">
       Documentação funcional da simulação do aplicativo <strong>VIBROTÁTIL® Connect</strong>,
@@ -189,10 +189,10 @@
   <div>
     <div class="capa-ficha">
       <table>
-        <tr><td>Projeto</td><td>VIBROTÁTIL® — Dispositivo Inteligente de Percepção Vibrotátil para Pessoas com Deficiência Auditiva</td></tr>
-        <tr><td>Módulo</td><td>Módulo III — Aplicativo móvel baseado nos recursos do smartphone</td></tr>
-        <tr><td>Organização</td><td>G-TEC do Brasil S.A. — CNPJ 84.846.278/0001-74</td></tr>
-        <tr><td>Versão do documento</td><td>1.0 — emissão inicial</td></tr>
+        <tr><td>Projeto</td><td>VIBROTÁTIL®, Dispositivo Inteligente de Percepção Vibrotátil para Pessoas com Deficiência Auditiva</td></tr>
+        <tr><td>Módulo</td><td>Módulo III, aplicativo móvel baseado nos recursos do smartphone</td></tr>
+        <tr><td>Organização</td><td>G-TEC do Brasil S.A., CNPJ 84.846.278/0001-74</td></tr>
+        <tr><td>Versão do documento</td><td>1.0, emissão inicial</td></tr>
         <tr><td>Data</td><td>17 de novembro de 2026</td></tr>
         <tr><td>Repositório</td><td>github.com/jaimevendrame/vibrotatil</td></tr>
         <tr><td>Protótipo publicado</td><td>jaimevendrame.github.io/vibrotatil/</td></tr>
@@ -213,7 +213,7 @@
 <!-- ============================ SUMÁRIO ============================ -->
 <section class="sumario-bloco">
   <h1 class="sumario">Sumário</h1>
-  <div class="sumario-sub">Documento técnico do protótipo VIBROTÁTIL® Connect — Módulo III</div>
+  <div class="sumario-sub">Documento técnico do protótipo VIBROTÁTIL® Connect, Módulo III</div>
   <ul id="sumario-lista"></ul>
 </section>
 
@@ -272,7 +272,7 @@
   </p>
   <ul>
     <li>Validar a arquitetura de navegação do aplicativo com usuários reais antes de comprometer-se com desenvolvimento nativo;</li>
-    <li>Estabelecer o vocabulário visual e tátil do produto — cores, hierarquia, nomenclatura dos eventos sonoros;</li>
+    <li>Estabelecer o vocabulário visual e tátil do produto, com cores, hierarquia e nomenclatura dos eventos sonoros;</li>
     <li>Testar a compreensão de padrões táteis distintos por categoria de som, antes de investir em modelos de classificação;</li>
     <li>Fornecer uma base de código executável e documentada para servir de referência à equipe de desenvolvimento;</li>
     <li>Constituir evidência técnica verificável do estado de maturidade do Módulo III.</li>
@@ -280,7 +280,7 @@
 
   <h3>1.3 Limites declarados</h3>
   <p>
-    A distinção entre o que o protótipo demonstra e o que ele simula é essencial para a leitura
+    A distinção entre o que o protótipo demonstra e o que ele simula determina a leitura
     correta deste documento. Todo o conjunto de funcionalidades abaixo está ausente da implementação:
   </p>
 
@@ -302,7 +302,7 @@
 
   <div class="nota limite">
     <span class="titulo-nota">Enquadramento regulatório e de comunicação</span>
-    Por se apoiar em alertas de segurança — buzinas, alarmes, choro de bebê —, o aplicativo real
+    Por se apoiar em alertas de segurança, como buzinas, alarmes e choro de bebê, o aplicativo real
     precisará de avaliação de enquadramento como tecnologia assistiva e, conforme a jurisdição,
     de registro sanitário. Nenhuma comunicação comercial deve afirmar que o sistema
     <em>garante</em> segurança ou que <em>identifica todos</em> os eventos sonoros.
@@ -346,7 +346,7 @@
   <p>
     A camada de comportamento consome esses objetos por meio de duas funções de alto nível:
     <code>detectarSomSimulado()</code>, que sorteia um objeto e dispara o ciclo completo de
-    feedback, e <code>detectarSomEspecifico()</code>, que recebe um objeto já escolhido — esta
+    feedback, e <code>detectarSomEspecifico()</code>, que recebe um objeto já escolhido. Esta
     última é exatamente a assinatura que a versão real deverá assumir, trocando o sorteio pela
     saída do classificador.
   </p>
@@ -355,7 +355,7 @@
     <span class="titulo-nota">Vantagem arquitetural relevante</span>
     A separação entre <code>detectarSomSimulado()</code> e <code>detectarSomEspecifico()</code>
     significa que a transição para produção não exige reescrita da camada de interface. Bastará
-    reimplementar a primeira função — trocando o sorteio por inferência do modelo — e manter a
+    reimplementar a primeira função, trocando o sorteio por inferência do modelo, e manter a
     segunda intacta. O mesmo raciocínio se aplica à camada de vibração: o padrão tátil é obtido
     por <code>obterPadraoVibracao(idSom)</code>, função isolada e determinística.
   </div>
@@ -437,7 +437,7 @@
     <span class="titulo-nota">Armadilha de CSS corrigida durante o desenvolvimento</span>
     A versão inicial declarava <code>display: none</code> e <code>display: flex</code> na mesma
     regra <code>.tela</code>. Como a segunda declaração prevalece, todas as quatro telas ficavam
-    visíveis ao mesmo tempo, sobrepondo-se — defeito detectado por inspeção automatizada. A
+    visíveis ao mesmo tempo, sobrepondo-se. O defeito foi detectado por inspeção automatizada. A
     correção exigiu separar os dois estados em regras distintas. O teste de regressão
     <em>apenas uma tela visível</em> foi incorporado à suíte de validação justamente para
     impedir a reintrodução do problema.
@@ -457,7 +457,7 @@
 
   <p>
     A implementação usa um contêiner com largura máxima de 430 px e os elementos de
-    posicionamento absoluto — barra de navegação, notificações e modal — são dimensionados em
+    posicionamento absoluto, isto é, a barra de navegação, as notificações e o modal, são dimensionados em
     relação a essa mesma medida, de modo que permaneçam contidos na moldura do celular
     independentemente da resolução da janela.
   </p>
@@ -507,7 +507,7 @@
       <tr><td>Animação</td><td>Três ondas concêntricas com atrasos escalonados de 0 s, 0,6 s e 1,2 s, em ciclo de 2 s</td></tr>
       <tr><td>Interrupção</td><td>Segundo toque no botão encerra a escuta, restaura o estado e cancela a detecção pendente</td></tr>
       <tr><td>Janela de análise</td><td>Primeira detecção entre 2.000 e 5.000 ms; detecções subsequentes a cada 5.000 ms</td></tr>
-      <tr><td>Limite de duração</td><td>Estado de escuta não consome bateria nem recursos — o ciclo é puramente simulado</td></tr>
+      <tr><td>Limite de duração</td><td>Estado de escuta não consome bateria nem recursos, já que o ciclo é puramente simulado</td></tr>
     </tbody>
   </table>
   <div class="tabela-captura">Aspectos funcionais do scanner de ambiente.</div>
@@ -558,7 +558,7 @@
   <h3>4.3 Sinalização visual na tela</h3>
   <p>
     A sinalização visual é o canal principal de comunicação do aplicativo, por ser o único que
-    transmite o <em>conteúdo semântico</em> do evento — o nome da categoria, e não apenas sua
+    transmite o <em>conteúdo semântico</em> do evento, isto é, o nome da categoria, e não apenas a sua
     presença. Ela é composta por três elementos no painel de resultado e complementada por uma
     notificação temporária.
   </p>
@@ -591,7 +591,7 @@
   <p>
     Este é o único canal do protótipo cuja implementação é integralmente real. A API
     <code>navigator.vibrate()</code> existe nas plataformas móveis e produz vibração física no
-    aparelho, o que confere ao protótipo fidelidade tátil real — desde que o aparelho reporte o
+    aparelho, o que confere ao protótipo fidelidade tátil real, desde que o aparelho reporte o
     suporte à API.
   </p>
 
@@ -609,12 +609,12 @@
   <table class="dados">
     <thead><tr><th style="width:22%">Categoria</th><th style="width:34%">Matriz transmitida ao aparelho</th><th style="width:22%">Duração total</th><th style="width:22%">Distingibilidade</th></tr></thead>
     <tbody>
-      <tr><td>Campainha</td><td><code>[400, 200, 200, 200]</code></td><td>1,2 s</td><td>Alta — ritmo lento e assimétrico</td></tr>
-      <tr><td>Buzina</td><td><code>[300, 150, 300]</code></td><td>0,75 s</td><td>Média — dois pulsos iguais</td></tr>
-      <tr><td>Choro de bebê</td><td><code>[600, 200, 600, 200, 600]</code></td><td>2,4 s</td><td>Alta — três pulsos longos</td></tr>
-      <tr><td>Alarme</td><td><code>[200,100,200,100,200,100,200]</code></td><td>1,2 s</td><td>Alta — cadência rápida</td></tr>
-      <tr><td>Chamada</td><td><code>[500, 300, 500]</code></td><td>1,3 s</td><td>Média — semelhante à buzina</td></tr>
-      <tr><td>Voz humana</td><td><code>[300,150,300,150,300]</code></td><td>1,5 s</td><td>Média — três pulsos curtos</td></tr>
+      <tr><td>Campainha</td><td><code>[400, 200, 200, 200]</code></td><td>1,2 s</td><td>Alta, ritmo lento e assimétrico</td></tr>
+      <tr><td>Buzina</td><td><code>[300, 150, 300]</code></td><td>0,75 s</td><td>Média, dois pulsos iguais</td></tr>
+      <tr><td>Choro de bebê</td><td><code>[600, 200, 600, 200, 600]</code></td><td>2,4 s</td><td>Alta, três pulsos longos</td></tr>
+      <tr><td>Alarme</td><td><code>[200,100,200,100,200,100,200]</code></td><td>1,2 s</td><td>Alta, cadência rápida</td></tr>
+      <tr><td>Chamada</td><td><code>[500, 300, 500]</code></td><td>1,3 s</td><td>Média, semelhante à buzina</td></tr>
+      <tr><td>Voz humana</td><td><code>[300,150,300,150,300]</code></td><td>1,5 s</td><td>Média, três pulsos curtos</td></tr>
     </tbody>
   </table>
   <div class="tabela-captura">Matrizes de vibração por categoria, duração total e grau de distinguibilidade perceptiva.</div>
@@ -625,8 +625,8 @@
     parâmetros (duração do pulso e intervalo), e a <strong>voz humana</strong> usa a mesma
     estrutura de três pulsos da <strong>campainha</strong>, com durações menores. A distinção
     depende, portanto, de sutis diferenças temporais. Recomenda-se validar a perceptibilidade
-    com usuários reais e considerar remodelar os padrões — por exemplo, variando a localização
-    ou o número de pulsos — antes de consolidar o conjunto como linguagem tátil definitiva.
+    com usuários reais e considerar remodelar os padrões, por exemplo variando a localização
+    ou o número de pulsos, antes de consolidar o conjunto como linguagem tátil definitiva.
   </div>
 
   <h3>4.5 Histórico de alertas</h3>
@@ -676,7 +676,7 @@
     <thead><tr><th style="width:18%">Perfil</th><th style="width:32%">Contexto de uso típico</th><th style="width:50%">Ajustes esperados na versão real</th></tr></thead>
     <tbody>
       <tr><td>Casa</td><td>Ambiente residencial econvívio familiar</td><td>Prioridade a campainha e choro de bebê; menor taxa de alarme de trânsito</td></tr>
-      <tr><td>Rua</td><td>Trânsito e áreas externas</td><td>Prioridade a buzinas; supressão de eventos domésticos; nãoSfonia do canal torácico</td></tr>
+      <tr><td>Rua</td><td>Trânsito e áreas externas</td><td>Prioridade a buzinas; supressão de eventos domésticos; silenciamento do canal torácico</td></tr>
       <tr><td>Trabalho</td><td>Ambiente profissional</td><td>Prioridade a chamada e voz; canal de voz humana ativo</td></tr>
       <tr><td>Noite</td><td>Período noturno</td><td>Intensidade vibratória reduzida; apenas eventos críticos</td></tr>
     </tbody>
@@ -692,7 +692,7 @@
     <span class="titulo-nota">Estado de implementação</span>
     A interface de perfis está completa: seleção do perfil ativo, criação por modal, feedback
     por notificação e persistência do identificador do perfil ativo. O que não está implementado
-    é o <strong>efeito do perfil sobre o comportamento</strong> — no protótipo, ativar "Rua" ou
+    é o <strong>efeito do perfil sobre o comportamento</strong>: no protótipo, ativar "Rua" ou
     "Noite" não altera os padrões vibratórios, pois não há motor de classificação ao qual aplicar
     esses parâmetros. Na versão real, cada perfil deverá carregar a tabela de intensidades, a
     lista de categorias ativas e o destino preferencial de cada evento.
@@ -773,10 +773,10 @@
       <tr><td><code>index.html</code></td><td>207</td><td>Estrutura das quatro telas, barra de navegação global, modal de perfil, notificação e marcação semântica</td></tr>
       <tr><td><code>css/style.css</code></td><td>779</td><td>Design tokens, layout, componentes, animações e regras de impressão</td></tr>
       <tr><td><code>js/app.js</code></td><td>467</td><td>Estado, navegação, renderização das listas, simulação de eventos e persistência</td></tr>
-      <tr><td><code>inspecionar.js</code></td><td>—</td><td>Validação automatizada com Playwright: navegação, renderização, interação e console</td></tr>
-      <tr><td><code>capturar.js</code></td><td>—</td><td>Geração das capturas de tela usadas neste documento</td></tr>
-      <tr><td><code>gerar-diagramas.js</code></td><td>—</td><td>Geração programática dos cinco diagramas em SVG</td></tr>
-      <tr><td><code>docs/</code></td><td>—</td><td>Este documento, sua fonte editável e os recursos gráficos</td></tr>
+      <tr><td><code>inspecionar.js</code></td><td>não se aplica</td><td>Validação automatizada com Playwright: navegação, renderização, interação e console</td></tr>
+      <tr><td><code>capturar.js</code></td><td>não se aplica</td><td>Geração das capturas de tela usadas neste documento</td></tr>
+      <tr><td><code>gerar-diagramas.js</code></td><td>não se aplica</td><td>Geração programática dos cinco diagramas em SVG</td></tr>
+      <tr><td><code>docs/</code></td><td>não se aplica</td><td>Este documento, sua fonte editável e os recursos gráficos</td></tr>
     </tbody>
   </table>
   <div class="tabela-captura">Arquivos do repositório e suas responsabilidades.</div>
@@ -818,8 +818,8 @@
   <div class="tabela-captura">Chaves de armazenamento local utilizadas pelo protótipo.</div>
 
   <p>
-    O restante do estado — perfis, dispositivos conectados, preferências de vibração e sinalização
-    — permanece em memória e é reiniciado a cada abertura. Essa separação é intencional: somente
+    O restante do estado, a saber, perfis, dispositivos conectados, preferências de vibração e sinalização,
+    permanece em memória e é reiniciado a cada abertura. Essa separação é intencional: somente
     os dados que o usuário perderia de formaizo frustrante são persistidos.
   </p>
 
@@ -871,7 +871,7 @@
   <p>
     O protótipo é acompanhado de um script de validação automatizada que executa o aplicativo em
     navegador real e verifica seu comportamento. O script é capaz de detectar regressões de
-    interface que passariam despercebidas em inspeção manual — a sobreposição de telas e o
+    interface que passariam despercebidas em inspeção manual, como a sobreposição de telas e o
     desalinhamento do contêiner, por exemplo, foram encontrados por essa via.
   </p>
 
@@ -927,8 +927,8 @@ node inspecionar.js</pre>
   <h3>7.1 Caminho de evolução</h3>
   <p>
     A transição do protótipo para o aplicativo funcional pode ser organizada em cinco camadas,
-    cada uma com dependência de anterior. O vantajoso dessa ordem é que a camada de interface
-    — que constitui a totalidade do trabalho realizado até aqui — permanece válida em todas as
+    cada uma com dependência de anterior. O vantajoso dessa ordem é que a camada de interface,
+    que constitui a totalidade do trabalho realizado até aqui, permanece válida em todas as
     etapas.
   </p>
 
@@ -972,7 +972,7 @@ node inspecionar.js</pre>
     <thead><tr><th style="width:26%">Risco</th><th style="width:14%">Severidade</th><th style="width:60%">Mitigação proposta</th></tr></thead>
     <tbody>
       <tr><td>Execução em segundo plano</td><td><span class="rotulo futuro">ALTA</span></td><td>Sistemas operacionais móveis restringem o uso contínuo do microfone em segundo plano, especialmente em iOS. A solução passa por desenvolvimento nativo ou por um modelo de operação em janela ativa, com notificação persistente ao usuário.</td></tr>
-      <tr><td>Consumo de bateria</td><td><span class="rotulo futuro">ALTA</span></td><td>Captura contínua de áudio consumirá energia de forma significativa. Demandará análise do perfil de consumo, decisão do usuário sobre duração da sessão e possibilidade de operação por activity contínua.</td></tr>
+      <tr><td>Consumo de bateria</td><td><span class="rotulo futuro">ALTA</span></td><td>Captura contínua de áudio consumirá energia de forma significativa. Demandará análise do perfil de consumo, decisão do usuário sobre duração da sessão e possibilidade de operação em vigília contínua.</td></tr>
       <tr><td>Variabilidade da vibração</td><td><span class="rotulo plano">MÉDIA</span></td><td>Cada fabricante implementa a API de vibração de forma particular. O protótipo não pode normalizar a intensidade percebida. Testes em aparelhos reais são indispensáveis, e pode ser necessário um perfil de ajuste por fabricante.</td></tr>
       <tr><td>Confiabilidade da classificação</td><td><span class="rotulo futuro">ALTA</span></td><td>Falso negativo em evento de segurança tem consequência relevante. O sistema deve exibir o grau de confiança da detecção e admitir que opera como apoio, jamais como garantia.</td></tr>
       <tr><td>Privacidade dos dados sonoros</td><td><span class="rotulo futuro">ALTA</span></td><td>Capturar áudio ambiente implica tratar dados de terceiros e potencialmente de crianças. Deve ser definido se o processamento é local, se há gravação, por quanto tempo os dados permanecem e como são eliminados.</td></tr>
@@ -989,11 +989,11 @@ node inspecionar.js</pre>
     prioridade, são:
   </p>
   <ol>
-    <li><strong>Validação com usuários</strong> — aplicar o protótipo a pessoas com diferentes perfis de deficiência auditiva, medindo tempo de aprendizagem dos padrões táteis e inteligibilidade dos rótulos;</li>
-    <li><strong>Empacotamento como aplicativo web progressivo</strong> — permitir instalação na tela inicial, com ícone próprio e abertura sem barra de navegador;</li>
-    <li><strong>Captura de áudio real</strong> — implementar a camada 1 do roadmap, mantendo o contrato de dados existente e protectedzando a interface contra regressões;</li>
-    <li><strong>Definição do conjunto de categorias prioritário</strong> — escolher dois ou três eventos para validar o modelo, em vez de perseguir as seis simultaneamente;</li>
-    <li><strong>Reestruturação dos padrões táteis</strong> — redesenhar o conjunto para eliminar as sobreposições apontadas na seção 4.4.</li>
+    <li><strong>Validação com usuários</strong>: aplicar o protótipo a pessoas com diferentes perfis de deficiência auditiva, medindo o tempo de aprendizagem dos padrões táteis e a inteligibilidade dos rótulos;</li>
+    <li><strong>Empacotamento como aplicativo web progressivo</strong>: permitir instalação na tela inicial, com ícone próprio e abertura sem barra de navegador;</li>
+    <li><strong>Captura de áudio real</strong>: implementar a camada 1 do roadmap, mantendo o contrato de dados existente e preservando a interface contra regressões;</li>
+    <li><strong>Definição do conjunto de categorias prioritário</strong>: escolher dois ou três eventos para validar o modelo, em vez de perseguir as seis simultaneamente;</li>
+    <li><strong>Reestruturação dos padrões táteis</strong>: redesenhar o conjunto para eliminar as sobreposições apontadas na seção 4.4.</li>
   </ol>
 
   <div class="nota">
@@ -1017,12 +1017,12 @@ node inspecionar.js</pre>
     <tbody>
       <tr><td>Protótipo publicado</td><td>https://jaimevendrame.github.io/vibrotatil/</td></tr>
       <tr><td>Repositório</td><td>https://github.com/jaimevendrame/vibrotatil</td></tr>
-      <tr><td>Commit documentado</td><td><code>815d661</code> — branch <code>main</code></td></tr>
-      <tr><td>Documento institucional</td><td>VIBROTÁTIL® — apresentação do projeto, G-TEC do Brasil S.A., 2026</td></tr>
-      <tr><td>Documento técnico do módulo</td><td>Funcionamento VIBROTÁTIL — descrição dos módulos I, II e III</td></tr>
-      <tr><td>Organização</td><td>G-TEC do Brasil S.A. — CNPJ 84.846.278/0001-74, Av. Capitão Índio Bandeira, 540 L II, Campo Mourão, Paraná</td></tr>
+      <tr><td>Commit documentado</td><td><code>815d661</code>, branch <code>main</code></td></tr>
+      <tr><td>Documento institucional</td><td>VIBROTÁTIL®, apresentação do projeto, G-TEC do Brasil S.A., 2026</td></tr>
+      <tr><td>Documento técnico do módulo</td><td>Funcionamento VIBROTÁTIL, descrição dos módulos I, II e III</td></tr>
+      <tr><td>Organização</td><td>G-TEC do Brasil S.A., CNPJ 84.846.278/0001-74, Av. Capitão Índio Bandeira, 540 L II, Campo Mourão, Paraná</td></tr>
       <tr><td>Tecnologias</td><td>HTML5, CSS3 com propriedades customizadas, JavaScript ES2020, Playwright 1.x (validação e captura)</td></tr>
-      <tr><td>Referência de vibração</td><td>API <code>navigator.vibrate()</code> — W3C Vibration Control, com suporte por plataforma</td></tr>
+      <tr><td>Referência de vibração</td><td>API <code>navigator.vibrate()</code>, W3C Vibration Control, com suporte por plataforma</td></tr>
     </tbody>
   </table>
   <div class="tabela-captura">Referências técnicas e institucionais.</div>
@@ -1036,7 +1036,7 @@ node inspecionar.js</pre>
   </div>
 
   <p style="margin-top:8mm; text-align:center; color:#5a6b82; font-size:9pt;">
-    Fim do documento · VIBROTÁTIL® Connect — Protótipo do Módulo III · versão 1.0<br>
+    Fim do documento · VIBROTÁTIL® Connect, Protótipo do Módulo III · versão 1.0<br>
     © 2026 G-TEC do Brasil S.A. Todos os direitos reservados.
   </p>
 </section>
